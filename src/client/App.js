@@ -45,7 +45,8 @@ class App extends FormClass {
 			if (res.isLoggedIn === true) {
 				this.setState({
 					isLoggedIn: res.isLoggedIn,
-					userData: res.userData
+					userData: res.userData,
+					login: false
 				})
 			} else {
 				this.setState({
@@ -75,7 +76,8 @@ class App extends FormClass {
 				// token: res.data.token,
 				userNotify: res.data.userNotify,
 				userData: res.data.userData,
-				isLoggedIn: true
+				isLoggedIn: true,
+				login: false
 			})
 		}
 		if (res.error) {

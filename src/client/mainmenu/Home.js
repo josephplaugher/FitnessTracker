@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import User from './User'
+import Track from './Track'
 
 class Home extends React.Component {
 	constructor(props) {
@@ -13,9 +14,9 @@ class Home extends React.Component {
 				<Router>
 					{/* prettier-ignore */}
 					<div id="nav-pane">        
-          <Link to="/track" className="nav">Track a worko</Link>
+          <Link to="/track" className="nav">Track a workout</Link>
             <Route path="/track" 
-              render={(props) => <h1>track a workout</h1>}
+              render={(props) => <Track/>}
               />
           <br/><Link to="/history" className="nav">History</Link>
             <Route path="/history" 
