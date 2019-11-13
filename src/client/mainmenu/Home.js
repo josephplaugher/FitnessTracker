@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import User from './User'
 import Track from './Track'
+import History from './History'
 
 class Home extends React.Component {
 	constructor(props) {
@@ -20,7 +21,7 @@ class Home extends React.Component {
               />
           <br/><Link to="/history" className="nav">History</Link>
             <Route path="/history" 
-              render={(props) => <h1>history</h1>}
+              render={(props) => <History/>}
               />
         </div>
 				</Router>

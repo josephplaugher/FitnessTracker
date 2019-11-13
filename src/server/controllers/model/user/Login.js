@@ -11,7 +11,7 @@ class Login extends UserBase {
 
 	async start() {
 		let userData = await this.getUsersByEmail()
-		console.log('the user data: ', userData)
+		// console.log('the user data: ', userData)
 		this.checkPassword(this.req, this.res, userData)
 	}
 

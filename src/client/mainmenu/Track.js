@@ -16,7 +16,7 @@ class Track extends FormClass {
 		this.route = '/track'
 		this.valRules = ValRules
 		this.state = {
-            workout: '',
+            exercise: '',
             weight: '',
             units: 'lbs'
 		}
@@ -31,7 +31,7 @@ class Track extends FormClass {
     selectWorkout(event) {
         console.log('select workout: ', event.target.textContent)
 		this.setState({
-			workout: event.target.textContent
+			exercise: event.target.textContent
 		})
     }
 
@@ -53,7 +53,7 @@ class Track extends FormClass {
 			<div id='workout-data'>
 				{/* prettier-ignore */}
 				<form onSubmit={this.rfa_onSubmit} >
-                  <Input name="workout" label="Workout" value={this.state.workout} onChange={this.rfa_onChange} />
+                  <Input name="exercise" label="Exercise" value={this.state.exercise} onChange={this.rfa_onChange} />
                   <Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} />
                   <Input name="units" label="Units" value={this.state.units} onChange={this.rfa_onChange} />
                   <div className="rfa_button-div">

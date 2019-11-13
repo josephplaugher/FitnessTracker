@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const SetUrl = require('./util/SetUrl.js')
 const Auth = require('./util/Auth.js')
 const userCont = require('./controllers/userCont.js')
+const workoutCont = require('./controllers/workoutCont.js')
 
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
@@ -40,6 +41,7 @@ app.get('/checkLoginState', checkAuth, (req, res) => {
 })
 
 app.use('/', userCont)
+app.use('/', workoutCont)
 
 //this route renders the UI. The UI will check for the cookie and token
 //and log the user out if they don't exist.
