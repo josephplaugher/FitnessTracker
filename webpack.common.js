@@ -1,5 +1,6 @@
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -32,5 +33,5 @@ module.exports = {
       css: path.resolve(__dirname, "src/client/css/")
     }
   },
-  plugins: [new Dotenv()]
+  plugins: [new Dotenv(), new MomentLocalesPlugin()]
 };

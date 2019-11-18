@@ -1,0 +1,12 @@
+.exercise-list {
+    display: block;
+    padding: 7px;
+}
+
+.date-row,
+.exercise-row,
+.weight-row,
+.rep-row {
+    display: inline-block;
+    margin: 0px 5px 0px 5px;
+}
