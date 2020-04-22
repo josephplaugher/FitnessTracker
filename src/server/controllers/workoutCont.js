@@ -7,7 +7,7 @@ const routes = express.Router()
 
 routes.post('/track', (req, res) => {
 	const workout = new Track(req, res)
-	workout.start()
+	workout.LogASet()
 })
 
 routes.get('/getHistory', History)

@@ -29,7 +29,11 @@ class Track extends FormClass {
             priority: 1,
             recentWorkouts: []
         }
-        this.extraData = {priority: this.state.priority}
+        this.extraData = {
+            exercise: this.state.exercise,
+            weight: this.state.weight, 
+            priority: this.state.priority
+            }
         this.response = this.response.bind(this)
         this.selectWorkout = this.selectWorkout.bind(this)
         this.recentWorkouts = this.recentWorkouts.bind(this)
@@ -38,20 +42,22 @@ class Track extends FormClass {
     }
 
     response(resp) {
-        this.props.response(resp)
+        // this.props.response(resp)
+        this.recentWorkouts(this.state.exercise)
     }
 
     selectWorkout(event) {
         console.log('select workout: ', event.target.textContent)
         const exercise = event.target.textContent
         this.setState({
-            exercise: exercise
+            exercise: exercise,
         })
         this.recentWorkouts(exercise)
     }
 
     recentWorkouts(exercise) {
         const param = exercise.toLowerCase()
+        const that = this
         Ajax.get(`${SetUrl()}/getRecent/${param}`)
             .then((res) => {
                 const log = res.data.log
@@ -61,6 +67,8 @@ class Track extends FormClass {
                     weight: last.weight_per_rep,
                     reps: last.reps_per_set
                 })
+                that.extraData.exercise = param
+                that.extraData.weight = last.weight_per_rep
             })
     }
 

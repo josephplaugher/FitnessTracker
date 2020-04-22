@@ -52,6 +52,7 @@
 		"eslint-plugin-react": "^7.16.0",
 		"eslint-plugin-react-hooks": "^1.7.0",
 		"file-loader": "^2.0.0",
+		"moment-locales-webpack-plugin": "^1.2.0",
 		"nodemon": "^1.18.9",
 		"sass-loader": "^7.1.0",
 		"style-loader": "^0.22.1",
