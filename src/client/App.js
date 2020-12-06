@@ -23,9 +23,9 @@ class App extends FormClass {
 		this.state = {
 			error: null,
 			userNotify: {},
-			isLoggedIn: false,
+			isLoggedIn: true,
 			newUser: false,
-			login: true,
+			login: false,
 			userData: {},
 			email: '',
 			password: ''
@@ -36,7 +36,7 @@ class App extends FormClass {
 		this.switchToCreateAccount = this.switchToCreateAccount.bind(this)
 		this.switchToLogin = this.switchToLogin.bind(this)
 		this.signOut = this.signOut.bind(this)
-		this.setLoginState()
+		//this.setLoginState()
 	}
 
 	setLoginState = () => {

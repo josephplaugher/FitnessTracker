@@ -9,7 +9,7 @@ class Track {
 
     LogASet(){
         const i = this.req.body
-        const reps = this.BuildRepString(i)
+        console.log('request body: ', i)
         const now = moment()
         const date = now.format("M/D/Y")
         const time = now.format("HH:mm A")
@@ -17,9 +17,9 @@ class Track {
         const Query = {
             text:
             `INSERT INTO log 
-            (date,time,exercise,weight_per_rep,reps_per_set,priority)
-            VALUES($1,$2,$3,$4,$5,$6)`,
-            values: [date,time,i.exercise,i.weight,reps,i.priority]
+            (date,time,lift,set1,set2,set3,set4,set5,set6,set7,set8,weight,fatigueindex)
+            VALUES(DEFAUlt,DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+            values: [i.exercise,i.reps1,i.reps2,i.reps3,i.reps4,i.reps5,i.reps6,i.reps7,i.reps8,i.weight,i.priority]
         }
         Conn
             .query(Query)
@@ -32,23 +32,6 @@ class Track {
             })
     }
 
-    BuildRepString(input) {
-        // remove blank array member (reps that were not recorded in the set)
-        var repArr = [input.reps1,input.reps2,input.reps3,input.reps4,input.reps5]
-        console.log('array not filtered: ', repArr)
-        var repArr = repArr.filter(Boolean)
-        console.log('array filtered: ', repArr)
-        // place filtered set into a string
-        var repString = ''
-        var i
-        for (i=0 ; i<repArr.length ; i++) {
-            repString += repArr[i] + "|"
-        }
-        // remove the trailing "|"
-        repString = repString.slice(0, -1)
-        console.log(repString)
-        return repString
-    }
 }
 
 module.exports = Track

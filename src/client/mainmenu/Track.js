@@ -47,8 +47,9 @@ class Track extends FormClass {
     }
 
     selectWorkout(event) {
-        console.log('select workout: ', event.target.textContent)
-        const exercise = event.target.textContent
+        console.log('hello there mate')
+        const exercise = event.target.textContent.toLowerCase()
+        this.extraData.exercise = exercise;
         this.setState({
             exercise: exercise,
         })
@@ -60,16 +61,16 @@ class Track extends FormClass {
         const that = this
         Ajax.get(`${SetUrl()}/getRecent/${param}`)
             .then((res) => {
+                console.log('ajax')
                 const log = res.data.log
                 const last = log[log.length-1]
                 this.setState({
                     recentWorkouts: res.data.log,
-                    weight: last.weight_per_rep,
-                    reps: last.reps_per_set
+                    weight: last.weight,
                 })
-                that.extraData.exercise = param
-                that.extraData.weight = last.weight_per_rep
+                that.extraData.weight = last.weight
             })
+            
     }
 
     setPriorityUp() {
@@ -89,10 +90,17 @@ class Track extends FormClass {
 
         const recentWorkouts = this.state.recentWorkouts.map((row)=> 
             <div key={row.id + "div"} className="exercise-list">
-                <p key={row.date + "-" + row.id} className="date-row">{`${row.date} ${row.time}`}.</p><br/>
-                <p key={row.exercise + "-" + row.id} className="exercise-row">{row.exercise}.</p>
-                <p key={row.weight_per_rep + "-" + row.id} className="weight-row">{row.weight_per_rep} lbs.</p>
-                <p key={row.reps_per_set + "-" + row.id} className="rep-row">Reps: {row.reps_per_set}</p>
+                <p key={row.date + "-" + row.id} className="date-row">{`${row.date.substring(0,10)}`}</p>
+                <p key={row.lift + "-" + row.id} className="exercise-row">{row.lift}.</p>
+                <p key={row.weight + "-" + row.id} className="weight-row">{row.weight} lbs.</p>
+                <p key={row.set1 + "-" + row.id} className="rep-row">Reps: {row.set1}</p>
+                <p key={row.set2 + "-" + row.id} className="rep-row"> {row.set2}</p>
+                <p key={row.set3 + "-" + row.id} className="rep-row"> {row.set3}</p>
+                <p key={row.set4 + "-" + row.id} className="rep-row"> {row.set4}</p>
+                <p key={row.set5 + "-" + row.id} className="rep-row"> {row.set5}</p>
+                <p key={row.set6 + "-" + row.id} className="rep-row"> {row.set6}</p>
+                <p key={row.set7 + "-" + row.id} className="rep-row"> {row.set7}</p>
+                <p key={row.set8 + "-" + row.id} className="rep-row"> {row.set8}</p>
             </div>
         )
        
@@ -101,16 +109,15 @@ class Track extends FormClass {
         return (
           <>
             <div id="workout-options">
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Deadlift</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Bench Press</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Back Squat</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Front Squat</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Eccentric Pull-Up</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Eccentric Chin-Up</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Pull-Up</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Chin-Up</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Curl</p>
-                <p className="workout-option" onClick={this.selectWorkout.bind(this)}>Plank</p>
+                <select>
+                <option value="Deadlift" className="workout-option" onClick={this.selectWorkout.bind(this)}>Deadlift</option>
+                <option value="Bench Press" className="workout-option" onClick={this.selectWorkout.bind(this)}>Bench Press</option>
+                <option value="Barbell Back Squat" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Back Squat</option>
+                <option value="Barbell Front Squat" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Front Squat</option>
+                <option value="Pull-Up" className="workout-option" onClick={this.selectWorkout.bind(this)}>Pull-Up</option>
+                <option value="Chin-Up" className="workout-option" onClick={this.selectWorkout.bind(this)}>Chin-Up</option>
+                <option value="Barbell-Curl" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Curl</option>
+                </select>
             </div>
             <div id="recent-workouts">
                 <p>Recent Workouts</p>
@@ -123,7 +130,7 @@ class Track extends FormClass {
                     <p>Priority {this.state.priority}</p>
                     <input type="button" className="rfa_submit" id="set-priority-up" value="Next" onClick={this.setPriorityUp.bind(this)}></input>
                     <input type="button" className="rfa_submit" id="set-priority-down" value="Prev" onClick={this.setPriorityDown.bind(this)}></input>
-                    <p>Units {this.state.units}</p><Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} /><br />
+                    <p>Units {this.state.units}</p><Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} />
                     <p>Reps per set</p>
                     <Input name="reps1" value={this.state.reps1} onChange={this.rfa_onChange} />
                     <Input name="reps2" value={this.state.reps2} onChange={this.rfa_onChange} />

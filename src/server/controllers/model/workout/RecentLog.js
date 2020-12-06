@@ -4,8 +4,8 @@ const RecentLog = (req, res) => {
     const Query = {
         text:
             `SELECT 
-            id,date,time,exercise,weight_per_rep,reps_per_set,priority 
-            FROM log WHERE exercise = $1 LIMIT 3`,
+            date,time,lift,set1,set2,set3,set4,set5,set6,set7,set8,weight,fatigueindex 
+            FROM log WHERE lift = $1 ORDER BY date DESC LIMIT 5`,
         values: [req.params.exercise]
     }
     Conn
