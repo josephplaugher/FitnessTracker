@@ -9,7 +9,6 @@ class Track {
 
     LogASet(){
         const i = this.req.body
-        console.log('request body: ', i)
         const now = moment()
         const date = now.format("M/D/Y")
         const time = now.format("HH:mm A")
@@ -24,7 +23,6 @@ class Track {
         Conn
             .query(Query)
             .then((data) => {
-                console.log('db response: ', data)
                 this.res.status(200).json({ success:true, data: data })
             })
             .catch((e) => {
