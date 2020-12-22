@@ -132,11 +132,13 @@ class Track extends FormClass {
             <div id="workout-data">
                 {/* prettier-ignore */}
                 <form onSubmit={this.rfa_onSubmit}>
-                    <p>{now}</p><p>{this.state.exercise}</p>
-                    <p>Priority {this.state.priority}</p>
+                    <p>{this.state.exercise} {now}</p>
+                    <p>Priority: {` ${this.state.priority} `}</p>
                     <input type="button" className="rfa_submit" id="set-priority-up" value="Next" onClick={this.setPriorityUp.bind(this)}></input>
                     <input type="button" className="rfa_submit" id="set-priority-down" value="Prev" onClick={this.setPriorityDown.bind(this)}></input>
-                    <p>Units {this.state.units}</p><Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} />
+                    <br/>
+                    <br/>
+                    <Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} />{` ${this.state.units}`}
                     <p>Reps per set</p>
                     <Input name="reps1" value={this.state.reps1} onChange={this.rfa_onChange} />
                     <Input name="reps2" value={this.state.reps2} onChange={this.rfa_onChange} />
