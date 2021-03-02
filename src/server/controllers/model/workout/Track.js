@@ -12,7 +12,6 @@ class Track {
         const now = moment()
         const date = now.format("M/D/Y")
         const time = now.format("HH:mm A")
-        console.log('time and date: ', date,time)
         const Query = {
             text:
             `INSERT INTO log 

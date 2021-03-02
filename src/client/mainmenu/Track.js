@@ -27,7 +27,8 @@ class Track extends FormClass {
             reps5: '',
             units: 'lbs',
             priority: 1,
-            recentWorkouts: []
+            recentWorkouts: [],
+            allRecentWorkouts: []
         }
         this.extraData = {
             exercise: this.state.exercise,
@@ -40,6 +41,8 @@ class Track extends FormClass {
         this.setPriorityUp = this.setPriorityUp.bind(this)
         this.setPriorityDown = this.setPriorityDown.bind(this)
         this.cleanZeros = this.cleanZeros.bind(this)
+        this.allRecentWorkouts = this.allRecentWorkouts.bind(this)
+        this.allRecentWorkouts()
     }
 
     response(resp) {
@@ -54,6 +57,15 @@ class Track extends FormClass {
             exercise: exercise,
         })
         this.recentWorkouts(exercise)
+    }
+
+    allRecentWorkouts() {
+        Ajax.get(`${SetUrl()}/getAllRecent`)
+            .then((res) => {
+                this.setState({
+                    allRecentWorkouts: res.data.log,
+                })
+            })
     }
 
     recentWorkouts(exercise) {
@@ -108,6 +120,25 @@ class Track extends FormClass {
                 <p key="setline8" className="rep-row"> {this.cleanZeros(row.set8)}</p>
             </div>
         )
+
+        const allRecentWorkouts = this.state.allRecentWorkouts.map((row)=> 
+            <>
+<p key="date-line" className="date-row">{`${row.date.substring(0,10)}`}</p>
+           
+            <div key={row.time + "div"} className="exercise-list">
+            <p key="lift-name" className="rep-row">{row.lift}</p>
+                <p key="weight-line" className="weight-row">{row.weight} lbs.</p>
+                <p key="setline1" className="rep-row">Reps: {row.set1}</p>
+                <p key="setline2" className="rep-row"> {this.cleanZeros(row.set2)}</p>
+                <p key="setline3" className="rep-row"> {this.cleanZeros(row.set3)}</p>
+                <p key="setline4" className="rep-row"> {this.cleanZeros(row.set4)}</p>
+                <p key="setline5" className="rep-row"> {this.cleanZeros(row.set5)}</p>
+                <p key="setline6" className="rep-row"> {this.cleanZeros(row.set6)}</p>
+                <p key="setline7" className="rep-row"> {this.cleanZeros(row.set7)}</p>
+                <p key="setline8" className="rep-row"> {this.cleanZeros(row.set8)}</p>
+            </div>
+            </>
+        )
        
         const currenttime = moment()
         const now = currenttime.format("M/D/Y HH:mm A")
@@ -126,8 +157,14 @@ class Track extends FormClass {
                 </select>
             </div>
             <div id="recent-workouts">
-                <p>Recent Workouts</p>
+                <div id='overall-recent'>
+                <p>Recent Workout Sessions</p>
+                {allRecentWorkouts}
+                </div>
+                <div id='this-workout-recent'>
+                <p>Recent {` ${this.state.exercise} `} Workouts</p>
                 {recentWorkouts}
+                </div>
             </div>
             <div id="workout-data">
                 {/* prettier-ignore */}
