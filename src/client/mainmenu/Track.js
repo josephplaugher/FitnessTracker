@@ -1,6 +1,7 @@
 import React from 'react'
 import * as moment from 'moment'
 import { FormClass, Input, Button } from 'reactform-appco'
+import Timer from 'react-compound-timer'
 import Ajax from 'Util/Ajax'
 import SetUrl from 'Util/SetUrl'
 import ValRules from 'Util/ValRules'
@@ -146,6 +147,7 @@ class Track extends FormClass {
           <>
             <div id="workout-options">
                 <select>
+                <option selected value="Start a Workout" className="workout-option">Start a Workout</option>
                 <option value="Deadlift" className="workout-option" onClick={this.selectWorkout.bind(this)}>Deadlift</option>
                 <option value="Bench Press" className="workout-option" onClick={this.selectWorkout.bind(this)}>Bench Press</option>
                 <option value="Barbell Rows" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Rows</option>
@@ -186,6 +188,37 @@ class Track extends FormClass {
                         <Button id="save" value="Save" />
                     </div>
                 </form>
+                <Timer
+                        initialTime={90000}
+                        direction="backward"
+                        startImmediately={false}
+                        checkpoints={[
+                            {
+                                time: 0.1,
+                                callback: () => console.log('Checkpoint A') //fire an alarm function here
+                            }]}
+                    >
+                        {({ start, resume, pause, stop, reset, timerState }) => (
+                            <React.Fragment>
+                                <div>
+                                    <pre>
+                                    <Timer.Minutes /> minutes <br/>
+                                    <Timer.Seconds /> seconds
+                                    </pre>
+                                </div>
+                                <div>Status {timerState}</div>
+                                <div>
+                                    <pre>
+                                    <button onClick={start}>Start</button>
+                                    <button onClick={pause}>Pause</button>
+                                    <button onClick={resume}>Resume</button>
+                                    <button onClick={stop}>Stop</button>
+                                    <button onClick={reset}>Reset</button>
+                                    </pre>
+                                </div>
+                            </React.Fragment>
+                        )}
+                </Timer>
             </div>
           </>
         )

@@ -8,7 +8,6 @@ import checkLoginState from 'Util/CheckLoginState'
 import Home from './mainmenu/Home'
 import Login from './Login'
 import NewUser from './NewUser'
-import Logo from './AppreciateLogo.png'
 
 import 'css/main.css'
 import 'css/form.css'
@@ -108,7 +107,6 @@ class App extends FormClass {
 		return (
 			<div id='container'>
 				<div id='logoBox'>
-					<img src={Logo} alt='Appreciate Logo' />
 				</div>
 				<div>
 					{this.state.isLoggedIn ? (
