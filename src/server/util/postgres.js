@@ -1,7 +1,6 @@
-const pg = require('pg')
-const { Pool } = pg
+const { Pool } = require('pg')
 
-var db_host
+let db_host
 if (process.env.NODE_ENV === 'production') {
 	db_host = process.env.DB_HOST_PROD
 } else {
