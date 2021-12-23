@@ -1,8 +1,7 @@
-const Conn = require('./../../../util/postgres')
-const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const UserBase = require('./UserBase.js')
 
-class NewUser extends UserBase {
+class NewStripeUser extends UserBase {
 	constructor(req, res) {
 		super()
 		this.req = req
@@ -32,27 +31,20 @@ class NewUser extends UserBase {
 		}
 	}
 
-	createUser() {
+	createStripeUser() {
 		let newCustomer = new Promise((resolve, reject) => {
 			let i = this.req.body
-			let hashedPassword = bcrypt.hashSync(i.password, 10)
-			const Query = {
-				text:
-					`INSERT INTO users 
-					(email, lname, fname, password) 
-					VALUES ($1,$2,$3,$4) 
-					RETURNING email, lname, fname`,
-				values: [i.email.toLowerCase(), i.lname, i.fname, hashedPassword]
-			}
-			Conn
-				.query(Query)
-				.then((data) => {
-					resolve(data.rows[0])
-				})
-				.catch((e) => reject(e.stack))
+			this.stripe.customers.create({ email: i.email }, (error, customer) => {
+				console.log('create user error: ', error)
+				if (error) {
+					reject(error)
+				} else {
+					resolve(customer)
+				}
+			})
 		})
 		return newCustomer
 	}
 }
 
-module.exports = NewUser
+module.exports = NewStripeUser

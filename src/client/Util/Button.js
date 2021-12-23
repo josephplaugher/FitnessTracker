@@ -1,17 +1,17 @@
 import React from 'react';
 
-class Button extends React.Component {
-    render() {
-        return (
-            <input className="submit" 
-            type="submit" 
-            name="submit"
-            id={this.props.id} 
-            value={this.props.value}
-            onClick={this.props.onClick}
-            />   
-        )
-    };
+const Button = (props) => {
+    const { name, id, value, onClick } = props
+    return (
+        <div className="button-div">
+            <button className="submit"
+                type="submit"
+                name={name}
+                id={id}
+                onClick={onClick}
+            >{value}</button>
+        </div>
+    )
 }
 
 export default Button;

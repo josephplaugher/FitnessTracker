@@ -5,13 +5,14 @@
 	padding-left: 30px;
 }
 
-.rfa_textinput {
+.input {
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0.5px solid #2665c4;
 	border-bottom: 0.5px solid #2665c4;
 	border-radius: 5px;
 	padding: 8px;
+	width: 120px;
 }
 
 .readonlytextinput {
@@ -24,12 +25,13 @@
 	background-color: #aeaeae80;
 }
 
-.rfa_input-container {
+.input-container {
 	display: block;
 	margin: 15px;
+	padding: 10px;
 }
 
-.rfa_label {
+.label {
 	color: #2665c4;
 	position: absolute;
 	margin-top: -15px;
@@ -60,7 +62,7 @@
 	color: #2665c4;
 }
 
-.rfa_submit {
+.submit {
 	margin: 0px;
 	padding: 3px 18px 3px 18px;
 	cursor: pointer;
@@ -71,7 +73,7 @@
 	border-width: 2px;
 }
 
-.rfa_button-div {
+.button-div {
 	margin-left: 12px;
 	margin-top: 20px;
 }

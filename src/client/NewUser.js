@@ -1,5 +1,6 @@
-import React from 'react'
-import { FormClass, Input, Button } from 'reactform-appco'
+import React, { useState } from 'react'
+import Input from 'Util/Input'
+import Button from 'Util/Button'
 import Ajax from 'Util/Ajax'
 import SetUrl from 'Util/SetUrl'
 import ValRules from 'Util/ValRules'
@@ -10,58 +11,49 @@ import 'css/main.css'
 import 'css/form.css'
 import 'css/userNotify.css'
 
-class NewUser extends FormClass {
-	constructor(props) {
-		super(props)
-		this.useLiveSearch = false
-		this.route = '/newUser'
-		this.valRules = ValRules
-		this.stripeKey = ''
-		this.state = {
-			error: null,
-			userData: {},
-			userNotify: { message: '' },
-			fname: '',
-			lname: '',
-			organization: '',
-			email: '',
-			password: ''
-		}
-		this.response = this.response.bind(this)
+const NewUser = (props) => {
+
+	const [userData, setUserData] = useState({})
+	const [fname, setFname] = useState('')
+	const [lname, setLname] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+
+	const submitForm = (e) => {
+		e.preventDefault()
+		console.log('submitt')
+		Ajax.post('/newUser', { fname, lname, email, password })
+			.then(resp => {
+				console.log(resp.data)
+				props.switchToLogin()
+			})
+			.catch(error => console.log(`new user error: ${error}`))
 	}
 
-	response(resp) {
-		this.setState({ userNotify: resp.data.userNotify })
-		this.props.response(resp)
-	}
-
-	render() {
-		return (
-			<div id='sign-in'>
-				<p className='form-title'>Create New Account</p>
-				{/* prettier-ignore */}
-				<form onSubmit={this.rfa_onSubmit} >
-                    <Input name="fname" label="First Name" value={this.state.fname} onChange={this.rfa_onChange} autoComplete={true}/>  
-                    <Input name="lname" label="Last Name" value={this.state.lname} onChange={this.rfa_onChange} autoComplete={true}/>    
-                    <Input name="organization" label="Organization Name" value={this.state.organization} onChange={this.rfa_onChange} autoComplete={true}/>
-                    <Input name="email" label="Email" value={this.state.email} onChange={this.rfa_onChange} autoComplete={true}/>
-                    <Input name="password" label="Password" value={this.state.password} onChange={this.rfa_onChange} />
-                    <div className="rfa_button-div">
-                        <Button id="submit" value="Create Account" />
-                    </div>
-                </form>
-				<div className='rfa_button-div'>
-					<Button
-						id='login'
-						value='Sign in instead'
-						onClick={this.props.switchToLogin}
-					/>
+	return (
+		<div id='sign-in'>
+			<p className='form-title'>Create New Account</p>
+			{/* prettier-ignore */}
+			<form onSubmit={(e) => submitForm(e)} >
+				<Input name="fname" label="First Name" value={fname} onChange={setFname} />
+				<Input name="lname" label="Last Name" value={lname} onChange={setLname} />
+				<Input name="email" label="Email" value={email} onChange={setEmail} />
+				<Input name="password" label="Password" value={password} onChange={setPassword} />
+				<div className="rfa_button-div">
+					<Button id="submit" value="Create Account" />
 				</div>
-				<UserNotify type='error' error={this.state.userNotify.error} />
-				<UserNotify type='message' message={this.state.userNotify.message} />
+			</form>
+			<div className='rfa_button-div'>
+				<Button
+					id='login'
+					value='Sign in instead'
+					onClick={props.switchToLogin}
+				/>
 			</div>
-		)
-	}
+		</div>
+	)
+
 }
 
 export default NewUser

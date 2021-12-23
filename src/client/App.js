@@ -22,8 +22,8 @@ class App extends FormClass {
 		this.state = {
 			error: null,
 			userNotify: {},
-			isLoggedIn: true,
-			newUser: false,
+			isLoggedIn: false,
+			newUser: true,
 			login: false,
 			userData: {},
 			email: '',
@@ -116,20 +116,16 @@ class App extends FormClass {
 						/>
 					) : null}
 					{this.state.login ? (
-						<>
-							<Login
-								response={this.loginResponse}
-								switchToCreateAccount={this.switchToCreateAccount}
-							/>
-						</>
+						<Login
+							response={this.loginResponse}
+							switchToCreateAccount={this.switchToCreateAccount}
+						/>
 					) : null}
 					{this.state.newUser ? (
-						<>
-							<NewUser
-								response={this.newUserResponse}
-								switchToLogin={this.switchToLogin}
-							/>
-						</>
+						<NewUser
+							response={this.newUserResponse}
+							switchToLogin={this.switchToLogin}
+						/>
 					) : null}
 				</div>
 			</div>

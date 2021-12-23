@@ -8,7 +8,6 @@ class UserBase {
 
 	getUsersByEmail() {
 		let User = new Promise((resolve, reject) => {
-			console.log('the email: ', this.req.body.email)
 			const Query = {
 				text:
 					'SELECT email, lname, fname, password FROM users WHERE email = $1 ',
