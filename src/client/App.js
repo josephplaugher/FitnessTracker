@@ -110,13 +110,10 @@ class App extends FormClass {
 				</div>
 				<div>
 					{this.state.isLoggedIn ? (
-						<EB comp='Home'>
-							<Home
-								userData={this.state.userData}
-								resfreshSources={this.refreshStripeSources}
-								signOut={this.signOut}
-							/>
-						</EB>
+						<Home
+							userData={this.state.userData}
+							signOut={this.signOut}
+						/>
 					) : null}
 					{this.state.login ? (
 						<>
