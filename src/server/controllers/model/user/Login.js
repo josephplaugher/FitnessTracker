@@ -18,7 +18,7 @@ class Login extends UserBase {
 	checkPassword(req, res, userData) {
 		if (userData) {
 			//if the email resulted in a user entry, compare password hashes
-			var dbhash = userData.password
+			const dbhash = userData.password
 			//if the password was hashed in PHP it will contain a '$2y$' hash.
 			//if hashed in Node, it will contain a '$2a$a' hash.
 			//if the former, we replace it before verifying.

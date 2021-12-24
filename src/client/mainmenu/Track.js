@@ -61,28 +61,27 @@ class Track extends FormClass {
     }
 
     allRecentWorkouts() {
-        // Ajax.get(`${SetUrl()}/getAllRecent`)
-        //     .then((res) => {
-        //         this.setState({
-        //             allRecentWorkouts: res.data.log,
-        //         })
-        //     })
+        Ajax.get(`${SetUrl()}/getAllRecent`)
+            .then((res) => {
+                this.setState({
+                    allRecentWorkouts: res.data.log,
+                })
+            })
     }
 
     recentWorkouts(exercise) {
         const param = exercise.toLowerCase()
         const that = this
-        // Ajax.get(`${SetUrl()}/getRecent/${param}`)
-        //     .then((res) => {
-        //         const log = res.data.log
-        //         const last = log[log.length-1]
-        //         this.setState({
-        //             recentWorkouts: res.data.log,
-        //             weight: last.weight,
-        //         })
-        //         that.extraData.weight = last.weight
-        //     })
-
+        Ajax.get(`${SetUrl()}/getRecent/${param}`)
+            .then((res) => {
+                const log = res.data.log
+                const last = log[log.length - 1]
+                this.setState({
+                    recentWorkouts: res.data.log,
+                    weight: last.weight,
+                })
+                that.extraData.weight = last.weight
+            })
     }
 
     cleanZeros(rep) {

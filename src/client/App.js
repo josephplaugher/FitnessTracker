@@ -23,8 +23,8 @@ class App extends FormClass {
 			error: null,
 			userNotify: {},
 			isLoggedIn: false,
-			newUser: true,
-			login: false,
+			newUser: false,
+			login: true,
 			userData: {},
 			email: '',
 			password: ''
@@ -34,6 +34,7 @@ class App extends FormClass {
 		this.newUserResponse = this.newUserResponse.bind(this)
 		this.switchToCreateAccount = this.switchToCreateAccount.bind(this)
 		this.switchToLogin = this.switchToLogin.bind(this)
+		this.switchToHome = this.switchToHome.bind(this)
 		this.signOut = this.signOut.bind(this)
 		//this.setLoginState()
 	}
@@ -57,11 +58,16 @@ class App extends FormClass {
 	}
 
 	switchToCreateAccount() {
-		this.setState({ login: false, newUser: true })
+		this.setState({ login: false, newUser: true, isLoggedIn: false })
 	}
 
 	switchToLogin() {
-		this.setState({ login: true, newUser: false })
+		this.setState({ login: true, newUser: false, isLoggedIn: false })
+	}
+
+	switchToHome(userData) {
+		this.setState({ login: false, newUser: false, isLoggedIn: true, userData: userData })
+
 	}
 
 	loginResponse(res) {
@@ -119,6 +125,7 @@ class App extends FormClass {
 						<Login
 							response={this.loginResponse}
 							switchToCreateAccount={this.switchToCreateAccount}
+							switchToHome={this.switchToHome}
 						/>
 					) : null}
 					{this.state.newUser ? (
