@@ -13,7 +13,6 @@ class Home extends React.Component {
 			<div id='home-container'>
 				<User userData={this.props.userData} signOut={this.props.signOut} />
 				<Router>
-					{/* prettier-ignore */}
 					<div id="nav-pane">
 						<Link to="/track" className="nav">Track a workout</Link>
 						<Routes>

@@ -1,4 +1,4 @@
-const jwt = require( 'jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 class Auth {
 	constructor(req, res, next) {
@@ -14,11 +14,8 @@ class Auth {
 
 	start() {
 		//check if cookie and token exist
-		if (this.req.cookies[this.cookieName] && this.req.headers.csrf) {
-			this.compare()
-		} else {
-			this.unsetLoginHeaders()
-		}
+		this.req.cookies[this.cookieName] && this.req.headers.csrf ?
+			this.compare() : this.unsetLoginHeaders()
 	}
 
 	compare() {
@@ -26,7 +23,7 @@ class Auth {
 		const csrf = this.req.headers.csrf
 		//if cookie and token exist and the token is valid, check that they are the same
 		if (cookie.token === csrf) {
-			var verifiedToken
+			let verifiedToken
 			try {
 				verifiedToken = jwt.verify(csrf, process.env.JWT_SECRET)
 			} catch (error) {

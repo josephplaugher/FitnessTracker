@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import Input from './Util/Input'
 import Button from './Util/Button'
 import Ajax from 'Util/Ajax'
-import SetUrl from 'Util/SetUrl'
-import ValRules from 'Util/ValRules'
-import EB from 'Util/EB'
 
 import 'css/main.css'
 import 'css/form.css'
@@ -16,13 +13,11 @@ const Login = (props) => {
 
 	const submitForm = (e) => {
 		e.preventDefault()
-		console.log('submitt')
 		Ajax.post('/login', { email, password })
 			.then(resp => {
-				console.log(resp.data)
-				props.switchToHome(resp.data.userData)
+				props.response(resp)
 			})
-			.catch(error => console.log(`new user error: ${error}`))
+			.catch(error => console.log(`login error: ${error}`))
 	}
 
 	return (

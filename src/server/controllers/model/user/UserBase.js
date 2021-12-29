@@ -10,7 +10,7 @@ class UserBase {
 		let User = new Promise((resolve, reject) => {
 			const Query = {
 				text:
-					'SELECT email, lname, fname, password FROM users WHERE email = $1 ',
+					'SELECT id, email, lname, fname, password FROM users WHERE email = $1 ',
 				values: [this.req.body.email.toLowerCase()]
 			}
 			Conn

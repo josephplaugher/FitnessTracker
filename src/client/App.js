@@ -3,7 +3,6 @@ import { FormClass, Input, Button } from 'reactform-appco'
 import Ajax from 'Util/Ajax'
 import SetUrl from 'Util/SetUrl'
 import ValRules from 'Util/ValRules'
-import EB from 'Util/EB'
 import checkLoginState from 'Util/CheckLoginState'
 import Home from './mainmenu/Home'
 import Login from './Login'
@@ -36,7 +35,7 @@ class App extends FormClass {
 		this.switchToLogin = this.switchToLogin.bind(this)
 		this.switchToHome = this.switchToHome.bind(this)
 		this.signOut = this.signOut.bind(this)
-		//this.setLoginState()
+		this.setLoginState()
 	}
 
 	setLoginState = () => {
@@ -78,14 +77,13 @@ class App extends FormClass {
 			)
 			sessionStorage.setItem(process.env.TOKEN_NAME, res.data.token)
 			this.setState({
-				// token: res.data.token,
+				token: res.data.token,
 				userNotify: res.data.userNotify,
 				userData: res.data.userData,
 				isLoggedIn: true,
 				login: false
 			})
-		}
-		if (res.error) {
+		} else if (res.error) {
 			console.error('submit error: ', res.error)
 		}
 	}
@@ -104,6 +102,7 @@ class App extends FormClass {
 		sessionStorage.removeItem(process.env.TOKEN_NAME)
 		this.setState({
 			isLoggedIn: false,
+			login: true,
 			userData: {}
 		})
 		Ajax.get(SetUrl() + '/user/logout')

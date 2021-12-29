@@ -13,7 +13,7 @@ app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
 let port = process.env.PORT
-app.listen(port, function() {
+app.listen(port, function () {
 	console.log(
 		'server started in ' + process.env.NODE_ENV + ' mode on port ' + port
 	)
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', SetUrl())
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 	res.header('Access-Control-Allow-Headers', 'Content-Type, authorization')
-	res.set('X-Powered-By', 'Appreciate Corporation')
+	res.set('X-Powered-By', 'Deez Guns')
 	next()
 })
 

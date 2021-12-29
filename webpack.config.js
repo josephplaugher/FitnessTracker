@@ -9,6 +9,7 @@ module.exports = {
     filename: "bundle.js"
   },
   watch: true,
+  devtool: 'eval-cheap-source-map',
   watchOptions: { ignored: /node_modules/ },
   module: {
     rules: [

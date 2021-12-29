@@ -1,11 +1,12 @@
 import React from 'react'
 import * as moment from 'moment'
 import { FormClass, Input, Button } from 'reactform-appco'
-import Timer from 'react-compound-timer'
+import LiftOptions from './Track/LiftOptions'
+import AllRecentWorkouts from './Track/AllRecentWorkouts'
+import RestTimer from './Track/RestTimer'
 import Ajax from 'Util/Ajax'
 import SetUrl from 'Util/SetUrl'
 import ValRules from 'Util/ValRules'
-import EB from 'Util/EB'
 
 import 'css/main.css'
 import 'css/workout-inputs.css'
@@ -38,12 +39,10 @@ class Track extends FormClass {
         }
         this.response = this.response.bind(this)
         this.selectWorkout = this.selectWorkout.bind(this)
-        this.recentWorkouts = this.recentWorkouts.bind(this)
+        this.allRecentWorkouts = this.allRecentWorkouts.bind(this)
         this.setPriorityUp = this.setPriorityUp.bind(this)
         this.setPriorityDown = this.setPriorityDown.bind(this)
-        this.cleanZeros = this.cleanZeros.bind(this)
-        this.allRecentWorkouts = this.allRecentWorkouts.bind(this)
-        this.allRecentWorkouts()
+        this.recentWorkouts = this.recentWorkouts.bind(this)
     }
 
     response(resp) {
@@ -58,21 +57,12 @@ class Track extends FormClass {
             exercise: exercise,
         })
         this.recentWorkouts(exercise)
-    }
-
-    allRecentWorkouts() {
-        Ajax.get(`${SetUrl()}/getAllRecent`)
-            .then((res) => {
-                this.setState({
-                    allRecentWorkouts: res.data.log,
-                })
-            })
+        this.allRecentWorkouts()
     }
 
     recentWorkouts(exercise) {
-        const param = exercise.toLowerCase()
         const that = this
-        Ajax.get(`${SetUrl()}/getRecent/${param}`)
+        Ajax.get(`${SetUrl()}/getRecent/${exercise.toLowerCase()}`)
             .then((res) => {
                 const log = res.data.log
                 const last = log[log.length - 1]
@@ -84,91 +74,42 @@ class Track extends FormClass {
             })
     }
 
-    cleanZeros(rep) {
-        if (rep > 0) {
-            return rep
-        } else {
-            return null
-        }
+    allRecentWorkouts() {
+        Ajax.get(`${SetUrl()}/getAllRecent`)
+            .then((res) => {
+                this.setState({ allRecentWorkouts: res.data.log })
+            })
     }
 
+
     setPriorityUp() {
-        const c = this.state.priority
-        const n = c + 1
-        this.setState({ priority: n })
+        this.setState({ priority: this.state.priority + 1 })
     }
 
     setPriorityDown() {
-        const c = this.state.priority
-        const n = c - 1
-        this.setState({ priority: n })
+        this.setState({ priority: this.state.priority == 1 ? this.state.priority : this.state.priority - 1 })
     }
 
     render() {
-
-        const recentWorkouts = this.state.recentWorkouts.map((row) =>
-            <div key={row.time + "div"} className="exercise-list">
-                <p key="date-line" className="date-row">{`${row.date.substring(0, 10)}`}</p>
-                <p key="weight-line" className="weight-row">{row.weight} lbs.</p>
-                <p key="setline1" className="rep-row">Reps: {row.set1}</p>
-                <p key="setline2" className="rep-row"> {this.cleanZeros(row.set2)}</p>
-                <p key="setline3" className="rep-row"> {this.cleanZeros(row.set3)}</p>
-                <p key="setline4" className="rep-row"> {this.cleanZeros(row.set4)}</p>
-                <p key="setline5" className="rep-row"> {this.cleanZeros(row.set5)}</p>
-                <p key="setline6" className="rep-row"> {this.cleanZeros(row.set6)}</p>
-                <p key="setline7" className="rep-row"> {this.cleanZeros(row.set7)}</p>
-                <p key="setline8" className="rep-row"> {this.cleanZeros(row.set8)}</p>
-            </div>
-        )
-
-        const allRecentWorkouts = this.state.allRecentWorkouts.map((row) =>
-            <>
-                <p key="date-line" className="date-row">{`${row.date.substring(0, 10)}`}</p>
-
-                <div key={row.time + "div"} className="exercise-list">
-                    <p key="lift-name" className="rep-row">{row.lift}</p>
-                    <p key="weight-line" className="weight-row">{row.weight} lbs.</p>
-                    <p key="setline1" className="rep-row">Reps: {row.set1}</p>
-                    <p key="setline2" className="rep-row"> {this.cleanZeros(row.set2)}</p>
-                    <p key="setline3" className="rep-row"> {this.cleanZeros(row.set3)}</p>
-                    <p key="setline4" className="rep-row"> {this.cleanZeros(row.set4)}</p>
-                    <p key="setline5" className="rep-row"> {this.cleanZeros(row.set5)}</p>
-                    <p key="setline6" className="rep-row"> {this.cleanZeros(row.set6)}</p>
-                    <p key="setline7" className="rep-row"> {this.cleanZeros(row.set7)}</p>
-                    <p key="setline8" className="rep-row"> {this.cleanZeros(row.set8)}</p>
-                </div>
-            </>
-        )
 
         const currenttime = moment()
         const now = currenttime.format("M/D/Y HH:mm A")
         return (
             <>
                 <div id="workout-options">
-                    <select>
-                        <option defaultValue="Start a Workout" className="workout-option">Start a Workout</option>
-                        <option value="Deadlift" className="workout-option" onClick={this.selectWorkout.bind(this)}>Deadlift</option>
-                        <option value="Bench Press" className="workout-option" onClick={this.selectWorkout.bind(this)}>Bench Press</option>
-                        <option value="Barbell Rows" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Rows</option>
-                        <option value="Barbell Back Squat" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Back Squat</option>
-                        <option value="Barbell Front Squat" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Front Squat</option>
-                        <option value="Pull-Up" className="workout-option" onClick={this.selectWorkout.bind(this)}>Pull-Up</option>
-                        <option value="Chin-Up" className="workout-option" onClick={this.selectWorkout.bind(this)}>Chin-Up</option>
-                        <option value="Barbell-Curl" className="workout-option" onClick={this.selectWorkout.bind(this)}>Barbell Curl</option>
-                    </select>
+                    <LiftOptions selectWorkout={this.selectWorkout.bind(this)} />
                 </div>
                 <div id="recent-workouts">
                     <div id='overall-recent'>
                         <p>Recent Workout Sessions</p>
-                        {allRecentWorkouts}
+                        <AllRecentWorkouts recentWorkouts={this.state.allRecentWorkouts} />
                     </div>
                     <div id='this-workout-recent'>
-                        <p>Recent {` ${this.state.exercise} `} Workouts</p>
-                        {recentWorkouts}
+                        <p>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
+                        <AllRecentWorkouts recentWorkouts={this.state.recentWorkouts} />
                     </div>
                 </div>
                 <div id="workout-data">
-                    {/* prettier-ignore */}
                     <form onSubmit={this.rfa_onSubmit}>
                         <p>{this.state.exercise} {now}</p>
                         <p>Priority: {` ${this.state.priority} `}</p>
@@ -187,37 +128,7 @@ class Track extends FormClass {
                             <Button id="save" value="Save" />
                         </div>
                     </form>
-                    <Timer
-                        initialTime={90000}
-                        direction="backward"
-                        startImmediately={false}
-                        checkpoints={[
-                            {
-                                time: 0.1,
-                                callback: () => console.log('Checkpoint A') //fire an alarm function here
-                            }]}
-                    >
-                        {({ start, resume, pause, stop, reset, timerState }) => (
-                            <React.Fragment>
-                                <div>
-                                    <pre>
-                                        <Timer.Minutes /> minutes <br />
-                                        <Timer.Seconds /> seconds
-                                    </pre>
-                                </div>
-                                <div>Status {timerState}</div>
-                                <div>
-                                    <pre>
-                                        <button onClick={start}>Start</button>
-                                        <button onClick={pause}>Pause</button>
-                                        <button onClick={resume}>Resume</button>
-                                        <button onClick={stop}>Stop</button>
-                                        <button onClick={reset}>Reset</button>
-                                    </pre>
-                                </div>
-                            </React.Fragment>
-                        )}
-                    </Timer>
+                    <RestTimer />
                 </div>
             </>
         )

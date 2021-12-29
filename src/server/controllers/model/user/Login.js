@@ -11,7 +11,6 @@ class Login extends UserBase {
 
 	async start() {
 		let userData = await this.getUsersByEmail()
-		// console.log('the user data: ', userData)
 		this.checkPassword(this.req, this.res, userData)
 	}
 
@@ -35,7 +34,7 @@ class Login extends UserBase {
 					})
 				} else if (result == true) {
 					delete userData.password //ensure the pw hash isn't sent along to the client
-					var token = jwt.sign({ userData: userData }, process.env.JWT_SECRET, {
+					const token = jwt.sign({ userData: userData }, process.env.JWT_SECRET, {
 						expiresIn: '1h'
 					})
 					res.cookie(
