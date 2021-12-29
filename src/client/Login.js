@@ -22,6 +22,7 @@ const Login = (props) => {
 
 	return (
 		<div id='sign-in'>
+			<h3 className="header">Lift Tracker</h3>
 			<p className='form-title'>Sign In</p>
 			{/* prettier-ignore */}
 			<form onSubmit={(e) => submitForm(e)} >

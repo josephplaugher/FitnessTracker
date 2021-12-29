@@ -17,19 +17,15 @@ const RestTimer = () => {
             {({ start, resume, pause, stop, reset, timerState }) => (
                 <React.Fragment>
                     <div>
-                        <pre>
-                            <Timer.Minutes /> minutes <br />
-                            <Timer.Seconds /> seconds
-                        </pre>
+                        <Timer.Minutes /> minutes <Timer.Seconds /> seconds
                     </div>
-                    <div>Status {timerState}</div>
                     <div>
                         <pre>
-                            <button onClick={start}>Start</button>
-                            <button onClick={pause}>Pause</button>
-                            <button onClick={resume}>Resume</button>
-                            <button onClick={stop}>Stop</button>
-                            <button onClick={reset}>Reset</button>
+                            <button className="button" onClick={start}>Start</button>
+                            <button className="button" onClick={pause}>Pause</button>
+                            <button className="button" onClick={resume}>Resume</button>
+                            <button className="button" onClick={stop}>Stop</button>
+                            <button className="button" onClick={reset}>Reset</button>
                         </pre>
                     </div>
                 </React.Fragment>

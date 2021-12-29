@@ -30,7 +30,9 @@ class Track extends FormClass {
             units: 'lbs',
             priority: 1,
             recentWorkouts: [],
-            allRecentWorkouts: []
+            allRecentWorkouts: [],
+            showAllRecents: true,
+            showThisRecents: false,
         }
         this.extraData = {
             exercise: this.state.exercise,
@@ -43,6 +45,9 @@ class Track extends FormClass {
         this.setPriorityUp = this.setPriorityUp.bind(this)
         this.setPriorityDown = this.setPriorityDown.bind(this)
         this.recentWorkouts = this.recentWorkouts.bind(this)
+        this.toggleAllRecents = this.toggleAllRecents.bind(this)
+        this.toggleThisRecents = this.toggleThisRecents.bind(this)
+        this.allRecentWorkouts()
     }
 
     response(resp) {
@@ -56,6 +61,8 @@ class Track extends FormClass {
         this.setState({
             exercise: exercise,
         })
+        this.setState({showThisRecents: true})
+        this.setState({showAllRecents: false})
         this.recentWorkouts(exercise)
         this.allRecentWorkouts()
     }
@@ -90,6 +97,16 @@ class Track extends FormClass {
         this.setState({ priority: this.state.priority == 1 ? this.state.priority : this.state.priority - 1 })
     }
 
+    toggleAllRecents() {
+        this.state.showAllRecents ? this.setState({showAllRecents: false}) :
+            this.setState({showAllRecents: true})
+    }
+
+    toggleThisRecents() {
+        this.state.showThisRecents ? this.setState({showThisRecents: false}) :
+            this.setState({showThisRecents: true})
+    }
+
     render() {
 
         const currenttime = moment()
@@ -101,18 +118,22 @@ class Track extends FormClass {
                 </div>
                 <div id="recent-workouts">
                     <div id='overall-recent'>
-                        <p>Recent Workout Sessions</p>
+                        <p className="log-header" onClick={()=>{this.toggleAllRecents()}}>Recent Workout Sessions</p>
+                    {this.state.showAllRecents ? (
                         <AllRecentWorkouts recentWorkouts={this.state.allRecentWorkouts} />
+                        ) : null }
                     </div>
                     <div id='this-workout-recent'>
-                        <p>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
+                        <p  className="log-header" onClick={()=>{this.toggleThisRecents()}}>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
+                    {this.state.showThisRecents ? (
                         <AllRecentWorkouts recentWorkouts={this.state.recentWorkouts} />
+                        ) : null }
                     </div>
                 </div>
                 <div id="workout-data">
                     <form onSubmit={this.rfa_onSubmit}>
                         <p>{this.state.exercise} {now}</p>
-                        <p>Priority: {` ${this.state.priority} `}</p>
+                        <p>Fatigue Index: {` ${this.state.priority} `}</p>
                         <input type="button" className="rfa_submit" id="set-priority-up" value="Next" onClick={this.setPriorityUp.bind(this)}></input>
                         <input type="button" className="rfa_submit" id="set-priority-down" value="Prev" onClick={this.setPriorityDown.bind(this)}></input>
                         <br />

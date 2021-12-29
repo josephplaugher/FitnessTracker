@@ -3,12 +3,18 @@
     padding: 7px;
 }
 
+.log-header {
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .date-row,
 .exercise-row,
 .weight-row,
 .rep-row {
     display: inline-block;
     margin: 0px 5px 0px 5px;
+    font-size: 10px;
 }
 
 /* #overall-recent {

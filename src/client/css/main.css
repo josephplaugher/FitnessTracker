@@ -1,3 +1,5 @@
+@media screen and (min-width: 701px) {
+
 #sign-in {
   margin: auto;
   padding: 0;
@@ -28,12 +30,75 @@
   display: block;
   padding: 10px;
   text-decoration: none;
+  width: 90%;
+}
+
+}
+
+@media screen and (max-width: 700px) {
+  #home-container {
+    display: grid;
+    grid-template-columns: 1% auto 1%;
+    grid-template-rows: 20% auto 5%;
+    padding: 10px;
+  }
+
+#nav-pane {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: row3-end;
+}
+
+.nav {
+  border: 0.5px solid #2665c4;
+  border-radius: 5px;
+  color: #2665c4;
+  font-size: 18px;
+  text-align: center;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  width: 90%;
+}
+}
+
+#sign-in {
+  /* margin: auto; */
+  width: 50%;
+}
+
+.form-title {
+  margin: auto;
+  width: 50%;
+}
+
+.header {
+  color: #2665c4;
+}
+
+#nav-pane {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: row3-end;
+}
+
+.nav {
+  border: 0.5px solid #2665c4;
+  border-radius: 5px;
+  color: #2665c4;
+  font-size: 18px;
+  text-align: center;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  width: 90%;
 }
 
 #form-container {
   margin-top: 50px;
 }
-
 .userNotify {
   color: red;
 }

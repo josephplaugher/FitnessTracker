@@ -1,6 +1,13 @@
 #user {
-  position: absolute;
+  font-size: 8px;
   right: 5px;
   top: 5px;
   width: 250px;
+  display: inline;
+}
+
+#sign-out {
+  text-decoration: underline;
+  cursor:pointer;
+  color: #2665c4;
 }
