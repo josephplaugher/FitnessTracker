@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useReducer } from "react"
 
 const AllRecentWorkouts = (props) => {
 
     const { recentWorkouts } = props
 
     const cleanZeros = (rep) => {
-        rep > 0 ? rep : null
+        return rep > 0 ? rep : null
     }
 
     return recentWorkouts.map((row, i) =>
@@ -22,6 +22,7 @@ const AllRecentWorkouts = (props) => {
                 <p key={`${i} setline6`} className="rep-row"> {cleanZeros(row.set6)}</p>
                 <p key={`${i} setline7`} className="rep-row"> {cleanZeros(row.set7)}</p>
                 <p key={`${i} setline8`} className="rep-row"> {cleanZeros(row.set8)}</p>
+                <p key={`${i} reptotal`} className="rep-row">Total Reps: {row.set1+row.set2+row.set3+row.set4+row.set5+row.set6+row.set7+row.set8}</p>
             </div>
         </>
 

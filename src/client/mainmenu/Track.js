@@ -61,8 +61,15 @@ class Track extends FormClass {
         this.setState({
             exercise: exercise,
         })
-        this.setState({showThisRecents: true})
-        this.setState({showAllRecents: false})
+        this.setState({
+            showThisRecents: true, 
+            showAllRecents: false,
+            weight: '',
+            reps1: '',
+            reps2: '',
+            reps3: '',
+            reps4: '',
+            reps5: ''})
         this.recentWorkouts(exercise)
         this.allRecentWorkouts()
     }
