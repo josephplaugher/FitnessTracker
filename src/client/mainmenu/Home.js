@@ -14,7 +14,7 @@ class Home extends React.Component {
 				<User userData={this.props.userData} signOut={this.props.signOut} />
 				<Router>
 					<div id="nav-pane">
-						<Link to="/track" className="nav">Track a workout</Link>
+						<Link to="/track" className="nav">Track a workout please mobile?</Link>
 						<Routes>
 							<Route path="/track"
 								element={<Track />}
