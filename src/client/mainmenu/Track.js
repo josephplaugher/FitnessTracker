@@ -75,9 +75,11 @@ class Track extends FormClass {
     }
 
     recentWorkouts(exercise) {
+        console.log('geting recent workouts...')
         const that = this
         Ajax.get(`${SetUrl()}/getRecent/${exercise.toLowerCase()}`)
             .then((res) => {
+                console.log('get recents resp: ', res)
                 const log = res.data.log
                 const last = log[log.length - 1]
                 this.setState({
