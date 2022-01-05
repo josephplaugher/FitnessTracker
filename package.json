@@ -7,7 +7,7 @@
 		"start": "concurrently \"npm run build:dev\" \"npm run start-server:dev\"",
 		"build": "npm run build:prod && npm run start-server:prod",
 		"build:dev": "webpack --mode development --config webpack.config.js",
-		"build:prod": "webpack -mode production --config webpack.config.js",
+		"build:prod": "webpack --mode production --config webpack.config.js",
 		"start-server:dev": "NODE_ENV=development nodemon src/server/index",
 		"start-server:prod": "NODE_ENV=production pm2 start ./src/server/index.js"
 	},
