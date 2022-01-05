@@ -69,7 +69,10 @@ class Track extends FormClass {
             reps2: '',
             reps3: '',
             reps4: '',
-            reps5: ''})
+            reps5: '',
+            recentWorkouts: [],
+            allRecentWorkouts: []
+        })
         this.recentWorkouts(exercise)
         this.allRecentWorkouts()
     }
