@@ -92,7 +92,7 @@ class Track extends FormClass {
                 })
                 that.extraData.weight = last.weight
             })
-            .error((error) => { this.setState({serverError: error})})
+            .catch((error) => { this.setState({serverError: error})})
     }
 
     allRecentWorkouts() {
@@ -100,7 +100,7 @@ class Track extends FormClass {
             .then((res) => {
                 this.setState({ allRecentWorkouts: res.data.log })
             })
-            .error((error) => { this.setState({serverError: error})})
+            .catch((error) => { this.setState({serverError: error})})
 
     }
 
