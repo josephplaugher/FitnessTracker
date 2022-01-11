@@ -5,7 +5,7 @@ const LiftOptions = (props) => {
     return (
         <select className="select">
             <option defaultValue="Start a Workout" className="select">Start a Workout</option>
-            <option value="Deadlift" className="select" onClick={(e)=>selectWorkout(e)}>Deadlift</option>
+            <option value="Deadlift" className="select" onClick={(e)=>{console.log('click'); selectWorkout(e)}}>Deadlift</option>
             <option value="Bench Press" className="select" onClick={(e)=>selectWorkout(e)}>Bench Press</option>
             <option value="Shoulder Press" className="select" onClick={(e)=>selectWorkout(e)}>Shoulder Press</option>
             <option value="Barbell Rows" className="select" onClick={(e)=>selectWorkout(e)}>Barbell Rows</option>
