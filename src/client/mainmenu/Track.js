@@ -58,6 +58,7 @@ class Track extends FormClass {
 
     selectWorkout(event) {
         const exercise = event.target.textContent.toLowerCase()
+        console.log('workout selected: ', exercise)
         this.extraData.exercise = exercise;
         this.setState({
             exercise: exercise,
@@ -82,25 +83,25 @@ class Track extends FormClass {
         console.log('geting recent workouts...')
         const that = this
         Ajax.get(`${SetUrl()}/getRecent/${exercise.toLowerCase()}`)
+            .catch((error) => { this.setState({serverError: error})})
             .then((res) => {
                 console.log('get recents resp: ', res)
-                const log = res.data.log
-                const last = log[log.length - 1]
+                const log = res.data.log ? res.data.log : null
+                const last = log ? log[log.length - 1] : {test: 'test',weight: ''}
                 this.setState({
                     recentWorkouts: res.data.log,
                     weight: last.weight,
                 })
                 that.extraData.weight = last.weight
             })
-            .catch((error) => { this.setState({serverError: error})})
     }
 
     allRecentWorkouts() {
         Ajax.get(`${SetUrl()}/getAllRecent`)
+        .catch((error) => { this.setState({serverError: error})})
             .then((res) => {
                 this.setState({ allRecentWorkouts: res.data.log })
             })
-            .catch((error) => { this.setState({serverError: error})})
 
     }
 
@@ -167,7 +168,7 @@ class Track extends FormClass {
                     </form>
                     <RestTimer />
                 </div>
-                <div>Server Error: {this.state.serverError}</div>
+                {/* <div>Server Error: {this.state.serverError}</div> */}
             </>
         )
     }
