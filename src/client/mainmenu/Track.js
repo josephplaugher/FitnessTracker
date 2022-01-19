@@ -33,7 +33,7 @@ class Track extends FormClass {
             allRecentWorkouts: [],
             showAllRecents: true,
             showThisRecents: false,
-            serverError:''
+            serverError: ''
         }
         this.extraData = {
             exercise: this.state.exercise,
@@ -52,6 +52,7 @@ class Track extends FormClass {
     }
 
     response(resp) {
+        this.extraData.priority = this.state.priority + 1
         this.setPriorityUp()
         this.recentWorkouts(this.state.exercise)
     }
@@ -64,7 +65,7 @@ class Track extends FormClass {
             exercise: exercise,
         })
         this.setState({
-            showThisRecents: true, 
+            showThisRecents: true,
             showAllRecents: false,
             weight: '',
             reps1: '',
@@ -83,11 +84,11 @@ class Track extends FormClass {
         console.log('geting recent workouts...')
         const that = this
         Ajax.get(`${SetUrl()}/getRecent/${exercise.toLowerCase()}`)
-            .catch((error) => { this.setState({serverError: error})})
+            .catch((error) => { this.setState({ serverError: error }) })
             .then((res) => {
                 console.log('get recents resp: ', res)
                 const log = res.data.log ? res.data.log : null
-                const last = log ? log[log.length - 1] : {test: 'test',weight: ''}
+                const last = log ? log[log.length - 1] : { test: 'test', weight: '' }
                 this.setState({
                     recentWorkouts: res.data.log,
                     weight: last.weight,
@@ -98,7 +99,7 @@ class Track extends FormClass {
 
     allRecentWorkouts() {
         Ajax.get(`${SetUrl()}/getAllRecent`)
-        .catch((error) => { this.setState({serverError: error})})
+            .catch((error) => { this.setState({ serverError: error }) })
             .then((res) => {
                 this.setState({ allRecentWorkouts: res.data.log })
             })
@@ -115,13 +116,13 @@ class Track extends FormClass {
     }
 
     toggleAllRecents() {
-        this.state.showAllRecents ? this.setState({showAllRecents: false}) :
-            this.setState({showAllRecents: true})
+        this.state.showAllRecents ? this.setState({ showAllRecents: false }) :
+            this.setState({ showAllRecents: true })
     }
 
     toggleThisRecents() {
-        this.state.showThisRecents ? this.setState({showThisRecents: false}) :
-            this.setState({showThisRecents: true})
+        this.state.showThisRecents ? this.setState({ showThisRecents: false }) :
+            this.setState({ showThisRecents: true })
     }
 
     render() {
@@ -135,16 +136,16 @@ class Track extends FormClass {
                 </div>
                 <div id="recent-workouts">
                     <div id='overall-recent'>
-                        <p className="log-header" onClick={()=>{this.toggleAllRecents()}}>Recent Workout Sessions</p>
-                    {this.state.showAllRecents ? (
-                        <AllRecentWorkouts recentWorkouts={this.state.allRecentWorkouts} />
-                        ) : null }
+                        <p className="log-header" onClick={() => { this.toggleAllRecents() }}>Recent Workout Sessions</p>
+                        {this.state.showAllRecents ? (
+                            <AllRecentWorkouts recentWorkouts={this.state.allRecentWorkouts} />
+                        ) : null}
                     </div>
                     <div id='this-workout-recent'>
-                        <p  className="log-header" onClick={()=>{this.toggleThisRecents()}}>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
-                    {this.state.showThisRecents ? (
-                        <AllRecentWorkouts recentWorkouts={this.state.recentWorkouts} />
-                        ) : null }
+                        <p className="log-header" onClick={() => { this.toggleThisRecents() }}>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
+                        {this.state.showThisRecents ? (
+                            <AllRecentWorkouts recentWorkouts={this.state.recentWorkouts} />
+                        ) : null}
                     </div>
                 </div>
                 <div id="workout-data">

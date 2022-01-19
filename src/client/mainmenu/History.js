@@ -15,13 +15,13 @@ class History extends React.Component {
     }
 
     getHistory() {
-        //     Ajax.get(SetUrl() + "/getHistory")
-        //     .then(res => {
-        //         console.log('get history: ', res.data.log)
-        //       this.setState({
-        //         history: res.data.log
-        //       })
-        //   })
+        Ajax.get(SetUrl() + "/getHistory")
+            .then(res => {
+                console.log('get history: ', res.data.log)
+                this.setState({
+                    history: res.data.log
+                })
+            })
     }
 
     cleanZeros(rep) {
@@ -36,6 +36,7 @@ class History extends React.Component {
         const historyDisplay = this.state.history.map((row) =>
             <div key={row.time + "div"} className="exercise-list">
                 <p key="date-line" className="date-row">{`${row.date.substring(0, 10)}`}</p>
+                <p key="lift-line" className="lift-row">{row.lift}</p>
                 <p key="weight-line" className="weight-row">{row.weight} lbs.</p>
                 <p key="setline1" className="rep-row">Reps: {row.set1}</p>
                 <p key="setline2" className="rep-row"> {this.cleanZeros(row.set2)}</p>
