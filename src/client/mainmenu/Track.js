@@ -87,7 +87,7 @@ class Track extends FormClass {
             .catch((error) => { this.setState({ serverError: error }) })
             .then((res) => {
                 console.log('get recents resp: ', res)
-                const log = res.data.log ? res.data.log : null
+                const log = res.data.log ? res.data.log.reverse() : null
                 const last = log ? log[log.length - 1] : { test: 'test', weight: '' }
                 this.setState({
                     recentWorkouts: res.data.log,

@@ -5,7 +5,7 @@ const RecentLog = (req, res) => {
         text:
             `SELECT 
             date,time,lift,set1,set2,set3,set4,set5,set6,set7,set8,weight,fatigueindex 
-            FROM log WHERE lift = $1 ORDER BY date ASC LIMIT 5`,
+            FROM log WHERE lift = $1 ORDER BY date DESC LIMIT 5`,
         values: [req.params.exercise]
     }
     Conn
