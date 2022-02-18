@@ -1,104 +1,64 @@
 @media screen and (min-width: 701px) {
+  #home-container {
+    display: grid;
+    grid-template-rows: 50px auto;
+    grid-template-columns: .5fr 1fr 1fr;
+    grid-gap: 10px;
+  }
 
-#sign-in {
-  margin: auto;
-  padding: 0;
-  width: 350px;
-  min-width: 350px;
-}
+  #sign-in {
+    grid-template-columns: 1 / 2;
+    grid-template-rows: 1 / 2;
+  }
 
-#home-container {
-  display: grid;
-  grid-template-columns: 30% auto 30%;
-  grid-template-rows: 20% auto 5%;
-  padding: 10px;
-}
+  #workout-options {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
 
-#nav-pane {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: row3-end;
-}
+  #overall-recent {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
 
-.nav {
-  border: 0.5px solid #2665c4;
-  border-radius: 5px;
-  color: #2665c4;
-  font-size: 18px;
-  text-align: center;
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  width: 90%;
-}
+  #this-workout-recent {
+    grid-column: 3 / 4  ;
+    grid-row: 2 / 3;
+  }
 
+  #workout-data {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
 }
 
 @media screen and (max-width: 700px) {
   #home-container {
     display: grid;
-    grid-template-columns: 1% auto 1%;
-    grid-template-rows: 20% auto 5%;
-    padding: 10px;
+    grid-template-rows: 50px 50px 200px auto;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
   }
 
-#nav-pane {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: row3-end;
-}
+  #sign-in {
+    grid-template-columns: 1 / 2;
+    grid-template-rows: 1 / 2;
+  }
 
-.nav {
-  border: 0.5px solid #2665c4;
-  border-radius: 5px;
-  color: #2665c4;
-  font-size: 18px;
-  text-align: center;
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  width: 90%;
-}
-}
+  #workout-options {
+    grid-row: 2 / 3;
+  }
 
-#sign-in {
-  /* margin: auto; */
-  width: 50%;
-}
+  #overall-recent {
+    grid-row: 4 / 5;
+  }
 
-.form-title {
-  margin: auto;
-  width: 50%;
-}
+  #this-workout-recent {
+    grid-row: 3 / 4;
+  }
 
-.header {
-  color: #2665c4;
-}
+  #workout-data {
+    grid-row: 2 / 3;
+  }
 
-#nav-pane {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: row3-end;
-}
-
-.nav {
-  border: 0.5px solid #2665c4;
-  border-radius: 5px;
-  color: #2665c4;
-  font-size: 18px;
-  text-align: center;
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  width: 90%;
-}
-
-#form-container {
-  margin-top: 50px;
-}
-.userNotify {
-  color: red;
 }

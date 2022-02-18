@@ -49,7 +49,10 @@ class History extends React.Component {
             </div>
         );
         return (
-            historyDisplay
+            <div id="overall-recent">
+                <h2>Workout History</h2>
+                {historyDisplay}
+            </div>
         )
     }
 }

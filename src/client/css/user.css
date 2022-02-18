@@ -1,9 +1,8 @@
 #user {
-  font-size: 8px;
+  font-size: 10px;
   right: 5px;
   top: 5px;
   width: 250px;
-  display: inline;
 }
 
 #sign-out {
