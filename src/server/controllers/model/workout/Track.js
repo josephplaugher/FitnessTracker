@@ -17,7 +17,8 @@ class Track {
                 `INSERT INTO log 
             (id,date,time,lift,set1,set2,set3,set4,set5,set6,set7,set8,weight,fatigueindex)
             VALUES(DEFAULT,DEFAUlt,DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
-            values: [i.exercise, i.reps1, i.reps2, i.reps3, i.reps4, i.reps5, i.reps6, i.reps7, i.reps8, i.weight, i.priority]
+            values: [i.exercise, i.reps1 || null, i.reps2 || null, i.reps3 || null, i.reps4 || null,
+            i.reps5 || null, i.reps6 || null, i.reps7 || null, i.reps8 || null, i.weight || null, i.priority]
         }
         Conn
             .query(Query)
