@@ -35,13 +35,12 @@
 @media screen and (max-width: 700px) {
   #home-container {
     display: grid;
-    grid-template-rows: 50px 50px 200px auto;
+    grid-template-rows: 25px 37px 200px auto;
     grid-template-columns: 1fr;
     grid-gap: 10px;
   }
 
-  #sign-in {
-    grid-template-columns: 1 / 2;
+  #user, #sign-in {
     grid-template-rows: 1 / 2;
   }
 
@@ -49,16 +48,14 @@
     grid-row: 2 / 3;
   }
 
-  #overall-recent {
-    grid-row: 4 / 5;
-  }
-
   #this-workout-recent {
     grid-row: 3 / 4;
+    overflow: scroll;
   }
 
   #workout-data {
-    grid-row: 2 / 3;
+    grid-row: 4 / 5;
+    margin-left: 5px;;
   }
 
 }

@@ -34,7 +34,7 @@ class History extends React.Component {
 
     render() {
         const historyDisplay = this.state.history.map((row) =>
-            <div key={row.time + "div"} className="exercise-list">
+            <div key={row.id + "div"} className="exercise-list">
                 <p key="date-line" className="date-row">{`${row.date.substring(0, 10)}`}</p>
                 <p key="lift-line" className="lift-row">{row.lift}</p>
                 <p key="weight-line" className="weight-row">{row.weight} lbs.</p>

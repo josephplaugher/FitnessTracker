@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import * as moment from 'moment'
-import { FormClass, Input, Button } from 'reactform-appco'
+import Input from 'Util/Input'
+import Button from 'Util/Button'
 import LiftOptions from './Track/LiftOptions'
 import AllRecentWorkouts from './Track/AllRecentWorkouts'
 import RestTimer from './Track/RestTimer'
@@ -13,157 +14,108 @@ import 'css/workout-inputs.css'
 import 'css/userNotify.css'
 import 'css/workoutlog.css'
 
-class Track extends FormClass {
-    constructor(props) {
-        super(props)
-        this.useLiveSearch = false
-        this.route = '/track'
-        this.valRules = ValRules
-        this.state = {
-            exercise: '',
-            weight: '',
-            reps1: '',
-            reps2: '',
-            reps3: '',
-            reps4: '',
-            reps5: '',
-            units: 'lbs',
-            priority: 1,
-            recentWorkouts: [],
-            allRecentWorkouts: [],
-            showAllRecents: true,
-            showThisRecents: false,
-            serverError: ''
-        }
-        this.extraData = {
-            exercise: this.state.exercise,
-            weight: this.state.weight,
-            priority: this.state.priority
-        }
-        this.response = this.response.bind(this)
-        this.selectWorkout = this.selectWorkout.bind(this)
-        this.allRecentWorkouts = this.allRecentWorkouts.bind(this)
-        this.setPriorityUp = this.setPriorityUp.bind(this)
-        this.setPriorityDown = this.setPriorityDown.bind(this)
-        this.recentWorkouts = this.recentWorkouts.bind(this)
-        // this.toggleAllRecents = this.toggleAllRecents.bind(this)
-        // this.toggleThisRecents = this.toggleThisRecents.bind(this)
-        this.allRecentWorkouts()
+const Track = () => {
+    const [lift, setLift] = useState('')
+    const [weight, setWeight] = useState(0)
+    const [reps1, setReps1] = useState('')
+    const [reps2, setReps2] = useState('')
+    const [reps3, setReps3] = useState('')
+    const [reps4, setReps4] = useState('')
+    const [reps5, setReps5] = useState('')
+    const [fatigueIndex, setFatigueIndex] = useState(1)
+    const [recentWorkouts, setRecentWorkouts] = useState([])
+    const [allRecentWorkouts, setAllRecentWorkouts] = useState([])
+
+    const submit = () => {
+        Ajax.post('/TrackASet',
+            { lift, weight, reps1, reps2, reps3, reps4, reps5, fatigueIndex })
+            .catch((error) => { console.log('error tracking a set: ', error) })
+            .then((resp) => {
+                console.log('log a lift resp: ', resp.data)
+                response(resp.data)
+            })
     }
 
-    response(resp) {
-        this.extraData.priority = this.state.priority + 1
-        this.setPriorityUp()
-        this.recentWorkouts(this.state.exercise)
+    const response = (log) => {
+        setWeight('')
+        setReps1('')
+        setReps2('')
+        setReps3('')
+        setReps4('')
+        setReps5('')
+        setFatigueIndex(fatigueIndex + 1)
+        setRecentWorkouts(log)
     }
 
-    selectWorkout(event) {
-        const exercise = event.target.textContent.toLowerCase()
-        console.log('workout selected: ', exercise)
-        this.extraData.exercise = exercise;
-        this.setState({
-            exercise: exercise,
-        })
-        this.setState({
-            showThisRecents: true,
-            showAllRecents: false,
-            weight: '',
-            reps1: '',
-            reps2: '',
-            reps3: '',
-            reps4: '',
-            reps5: '',
-            recentWorkouts: [],
-            allRecentWorkouts: []
-        })
-        this.recentWorkouts(exercise)
-        this.allRecentWorkouts()
+    const selectWorkout = (event) => {
+        console.log('workout selected: ', event.target.textContent.toLowerCase())
+        const lift = event.target.textContent.toLowerCase()
+        setLift(lift)
+        getRecentWorkouts(lift)
     }
 
-    recentWorkouts(exercise) {
+    const getRecentWorkouts = (lift) => {
         console.log('geting recent workouts...')
         const that = this
-        Ajax.get(`${SetUrl()}/getRecent/${exercise.toLowerCase()}`)
-            .catch((error) => { this.setState({ serverError: error }) })
+        Ajax.get(`${SetUrl()}/LiftHistory/${lift.toLowerCase()}`)
+            .catch((error) => { console.log('error getting history: ', error) })
             .then((res) => {
                 console.log('get recents resp: ', res)
                 const log = res.data.log ? res.data.log.reverse() : null
                 const last = log ? log[log.length - 1] : { test: 'test', weight: '' }
-                this.setState({
-                    recentWorkouts: res.data.log,
-                    weight: last.weight,
-                })
-                that.extraData.weight = last.weight
+                setRecentWorkouts(res.data.log)
+                setWeight(last.weight)
             })
     }
 
-    allRecentWorkouts() {
-        Ajax.get(`${SetUrl()}/getAllRecent`)
-            .catch((error) => { this.setState({ serverError: error }) })
+    const getAllRecentWorkouts = () => {
+        Ajax.get(`${SetUrl()}/History`)
+            .catch((error) => { console.log('error getting history: ', error) })
             .then((res) => {
-                this.setState({ allRecentWorkouts: res.data.log })
+                setAllRecentWorkouts(res.data.log)
             })
-
     }
 
-
-    setPriorityUp() {
-        this.setState({ priority: this.state.priority + 1 })
+    const setPriorityUp = () => {
+        setFatigueIndex(fatigueIndex + 1)
     }
 
-    setPriorityDown() {
-        this.setState({ priority: this.state.priority == 1 ? this.state.priority : this.state.priority - 1 })
+    const setPriorityDown = () => {
+        setFatigueIndex(fatigueIndex - 1)
     }
+    return (
+        // const currenttime = moment()
+        // const now = currenttime.format("M/D/Y HH:mm A")
+        <>
+            <div id="workout-options">
+                <LiftOptions selectWorkout={selectWorkout} />
+            </div>
+            <div id='this-workout-recent'>
+                {/* <p className="log-header" onClick={() => { this.toggleThisRecents() }}>Recent {` ${exercise} `} Workouts {(!exercise) ? <span>(select a workout to see recents)</span> : null}</p> */}
+                <AllRecentWorkouts recentWorkouts={recentWorkouts} />
+            </div>
+            {/* </div> */}
+            <div id="workout-data">
+                <form onSubmit={submit}>
+                    {/* <p>{lift} {moment("M/D/Y HH:mm A")}</p> */}
+                    <div id="lift-config">
+                        <p style={{ margin: "0px" }}>Fatigue<br /> Index: {` ${fatigueIndex} `}</p>
+                        <Button value="+" id="set-priority-up" onClick={() => setPriorityUp()} className="fi-button" buttonContainerclassName="fi-button-div" />
+                        <Button value="-" id="set-priority-down" onClick={() => setPriorityDown()} className="fi-button" buttonContainerclassName="fi-button-div" />
+                        <p style={{ margin: "0px 0px 0px 25px" }}>Weight<br /> (lbs)</p><Input name="weight" value={weight} onChange={setWeight} className="textinput" containerCls="weight-input-container" />
+                    </div>
+                    <div id="reps-title-row"  ><p>Reps per set</p><Button id="save" value="Save" className="save" buttonContainerclassName="save-button-div" /></div>
+                    <Input name="reps1" value={reps1} onChange={setReps1} className="textinput" />
+                    <Input name="reps2" value={reps2} onChange={setReps2} className="textinput" />
+                    <Input name="reps3" value={reps3} onChange={setReps3} className="textinput" />
+                    <Input name="reps4" value={reps4} onChange={setReps4} className="textinput" />
+                    <Input name="reps5" value={reps5} onChange={setReps5} className="textinput" />
 
-    // toggleAllRecents() {
-    //     this.state.showAllRecents ? this.setState({ showAllRecents: false }) :
-    //         this.setState({ showAllRecents: true })
-    // }
-
-    // toggleThisRecents() {
-    //     this.state.showThisRecents ? this.setState({ showThisRecents: false }) :
-    //         this.setState({ showThisRecents: true })
-    // }
-
-    render() {
-
-        const currenttime = moment()
-        const now = currenttime.format("M/D/Y HH:mm A")
-        return (
-            <>
-                <div id="workout-options">
-                    <LiftOptions selectWorkout={this.selectWorkout.bind(this)} />
-                </div>
-                {/* <div id="recent-workouts"> */}
-                <div id='this-workout-recent'>
-                    <p className="log-header" onClick={() => { this.toggleThisRecents() }}>Recent {` ${this.state.exercise} `} Workouts {(!this.state.exercise) ? <span>(select a workout to see recents)</span> : null}</p>
-                    <AllRecentWorkouts recentWorkouts={this.state.recentWorkouts} />
-                </div>
-                {/* </div> */}
-                <div id="workout-data">
-                    <form onSubmit={this.rfa_onSubmit}>
-                        <p>{this.state.exercise} {now}</p>
-                        <p>Fatigue Index: {` ${this.state.priority} `}</p>
-                        <input type="button" className="rfa_submit" id="set-priority-up" value="Next" onClick={this.setPriorityUp.bind(this)}></input>
-                        <input type="button" className="rfa_submit" id="set-priority-down" value="Prev" onClick={this.setPriorityDown.bind(this)}></input>
-                        <br />
-                        <br />
-                        <Input name="weight" label="Weight" value={this.state.weight} onChange={this.rfa_onChange} />{` ${this.state.units}`}
-                        <p>Reps per set</p>
-                        <Input name="reps1" value={this.state.reps1} onChange={this.rfa_onChange} />
-                        <Input name="reps2" value={this.state.reps2} onChange={this.rfa_onChange} />
-                        <Input name="reps3" value={this.state.reps3} onChange={this.rfa_onChange} />
-                        <Input name="reps4" value={this.state.reps4} onChange={this.rfa_onChange} />
-                        <Input name="reps5" value={this.state.reps5} onChange={this.rfa_onChange} />
-                        <div className="rfa_button-div">
-                            <Button id="save" value="Save" />
-                        </div>
-                    </form>
-                    <RestTimer />
-                </div>
-            </>
-        )
-    }
+                </form>
+                <RestTimer />
+            </div>
+        </>
+    )
 }
 
 export default Track

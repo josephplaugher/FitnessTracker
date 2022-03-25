@@ -9,6 +9,7 @@ class Track {
 
     LogASet() {
         const i = this.req.body
+        console.log('request body: ', i)
         const now = moment()
         const date = now.format("M/D/Y")
         const time = now.format("HH:mm A")

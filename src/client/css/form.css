@@ -5,7 +5,7 @@
 	padding-left: 30px;
 }
 
-.input {
+.logininput {
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0.5px solid #2665c4;
@@ -19,7 +19,11 @@
 	border: 0.5px solid #2665c4;
 	border-radius: 5px;
 	padding: 8px;
-	width: 200px;
+	width: 100%;
+}
+
+.select-option {
+	text-transform: capitalize;
 }
 
 .button {
@@ -42,7 +46,7 @@
 .input-container {
 	display: block;
 	margin: 15px;
-	padding: 10px;
+	padding: 0px;
 }
 
 .label {
@@ -53,7 +57,7 @@
 	font-size: 12px;
 }
 
-.rfa_input-error {
+.input-error {
 	color: red;
 	font-size: 10px;
 	margin-left: 20px;

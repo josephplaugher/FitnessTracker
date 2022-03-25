@@ -7,6 +7,7 @@ const SetUrl = require('./util/SetUrl.js')
 const Auth = require('./util/Auth.js')
 const userCont = require('./controllers/userCont.js')
 const workoutCont = require('./controllers/workoutCont.js')
+const liftOptionCont = require('./controllers/liftOptionCont')
 
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
@@ -14,9 +15,8 @@ app.set('views', './src/views')
 
 let port = process.env.PORT
 app.listen(port, function () {
-	console.log(
-		'server started in ' + process.env.NODE_ENV + ' mode on port ' + port
-	)
+	console.log(`server started in ${process.env.NODE_ENV} mode`)
+	console.log(`running at ${process.env.NODE_ENV == 'development' ? process.env.BASE_URL_DEV : process.env.BASE_URL_PROD}`)
 })
 
 app.use((req, res, next) => {
@@ -42,6 +42,7 @@ app.get('/checkLoginState', checkAuth, (req, res) => {
 
 app.use('/', userCont)
 app.use('/', workoutCont)
+app.use('/', liftOptionCont)
 
 //this route renders the UI. The UI will check for the cookie and token
 //and log the user out if they don't exist.

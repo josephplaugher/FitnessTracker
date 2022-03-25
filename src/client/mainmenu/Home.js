@@ -8,7 +8,6 @@ const Home = (props) => {
 		<div id='home-container'>
 			<User userData={props.userData} signOut={props.signOut} />
 			<Track />
-			<History />
 		</div>
 	)
 }

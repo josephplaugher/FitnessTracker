@@ -26,20 +26,20 @@ const Login = (props) => {
 			<p className='form-title'>Sign In</p>
 			{/* prettier-ignore */}
 			<form onSubmit={(e) => submitForm(e)} >
-				<Input name="email" label="Email" value={email} onChange={setEmail} />
-				<Input name="password" label="Password" value={password} onChange={setPassword} />
-				<div className="rfa_button-div">
+				<Input name="email" label="Email" value={email} onChange={setEmail} className="logininput" />
+				<Input name="password" label="Password" value={password} onChange={setPassword} className="logininput" />
+				<div className="button-div">
 					<Button id="submit" value="Sign In" />
 				</div>
 			</form>
-			<div className='rfa_button-div'>
+			<div className='button-div'>
 				<Button
 					id='createAccount'
 					value='Create Account'
 					onClick={props.switchToCreateAccount}
 				/>
 			</div>
-			<div className='rfa_button-div'>
+			<div className='button-div'>
 				<Button id='resetPassword' value='Reset Password' />
 			</div>
 		</div>
