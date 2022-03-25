@@ -26,7 +26,8 @@ const Track = () => {
     const [recentWorkouts, setRecentWorkouts] = useState([])
     const [allRecentWorkouts, setAllRecentWorkouts] = useState([])
 
-    const submit = () => {
+    const submit = (e) => {
+        e.preventDefault()
         Ajax.post('/TrackASet',
             { lift, weight, reps1, reps2, reps3, reps4, reps5, fatigueIndex })
             .catch((error) => { console.log('error tracking a set: ', error) })
@@ -96,7 +97,7 @@ const Track = () => {
             </div>
             {/* </div> */}
             <div id="workout-data">
-                <form onSubmit={submit}>
+                <form >
                     {/* <p>{lift} {moment("M/D/Y HH:mm A")}</p> */}
                     <div id="lift-config">
                         <p style={{ margin: "0px" }}>Fatigue<br /> Index: {` ${fatigueIndex} `}</p>
@@ -104,7 +105,7 @@ const Track = () => {
                         <Button value="-" id="set-priority-down" onClick={() => setPriorityDown()} className="fi-button" buttonContainerclassName="fi-button-div" />
                         <p style={{ margin: "0px 0px 0px 25px" }}>Weight<br /> (lbs)</p><Input name="weight" value={weight} onChange={setWeight} className="textinput" containerCls="weight-input-container" />
                     </div>
-                    <div id="reps-title-row"  ><p>Reps per set</p><Button id="save" value="Save" className="save" buttonContainerclassName="save-button-div" /></div>
+                    <div id="reps-title-row"  ><p>Reps per set</p><Button id="save" value="Save" className="save" buttonContainerclassName="save-button-div" onClick={(e) => { submit(e) }} /></div>
                     <Input name="reps1" value={reps1} onChange={setReps1} className="textinput" />
                     <Input name="reps2" value={reps2} onChange={setReps2} className="textinput" />
                     <Input name="reps3" value={reps3} onChange={setReps3} className="textinput" />
