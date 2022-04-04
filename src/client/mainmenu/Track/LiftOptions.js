@@ -21,7 +21,7 @@ const LiftOptions = (props) => {
         <select className="select">
             <option defaultValue="Start a Workout" className="select">Start a Workout</option>
             {liftOptions.map(lift =>
-                <option key={lift.id} value={lift.name} className="select-option" onClick={(e) => selectWorkout(e)}>{lift.name}</option>
+                <option key={lift.id} value={lift.name} className="select-option" onClick={(e) => selectWorkout(e.target.value)}>{lift.name}</option>
             )}
         </select>
     )

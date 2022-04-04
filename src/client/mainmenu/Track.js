@@ -48,9 +48,9 @@ const Track = () => {
         getRecentWorkouts(lift)
     }
 
-    const selectWorkout = (event) => {
-        console.log('workout selected: ', event.target.textContent.toLowerCase())
-        const lift = event.target.textContent.toLowerCase()
+    const selectWorkout = (val) => {
+        console.log('workout selected: ', val.toLowerCase())
+        const lift = val.toLowerCase()
         setLift(lift)
         getRecentWorkouts(lift)
     }
