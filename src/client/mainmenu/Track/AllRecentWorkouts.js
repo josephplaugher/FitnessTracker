@@ -10,7 +10,7 @@ const AllRecentWorkouts = (props) => {
 
     return recentWorkouts.map((row, i) =>
         <>
-            <p key={`${i} date-line`} className="date-row">{`${row.date.substring(0, 10)}`}</p>
+            <p key={`${i} date-row`} className="date-row">{`${row.date.substring(0, 10)}`}</p>
             <div key={`${row.time} div`} className="exercise-list">
                 <p key={`${i} lift-name`} className="rep-row">{row.lift}</p>
                 <p key={`${i} weight-line`} className="weight-row">{row.weight} lbs.</p>
