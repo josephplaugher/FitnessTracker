@@ -19,10 +19,7 @@ const AllRecentWorkouts = (props) => {
                 <p key={`${i} setline3`} className="rep-row"> {cleanZeros(row.set3)}</p>
                 <p key={`${i} setline4`} className="rep-row"> {cleanZeros(row.set4)}</p>
                 <p key={`${i} setline5`} className="rep-row"> {cleanZeros(row.set5)}</p>
-                <p key={`${i} setline6`} className="rep-row"> {cleanZeros(row.set6)}</p>
-                <p key={`${i} setline7`} className="rep-row"> {cleanZeros(row.set7)}</p>
-                <p key={`${i} setline8`} className="rep-row"> {cleanZeros(row.set8)}</p>
-                <p key={`${i} reptotal`} className="rep-row">Total Reps: {row.set1 + row.set2 + row.set3 + row.set4 + row.set5 + row.set6 + row.set7 + row.set8}</p>
+                <p key={`${i} reptotal`} className="rep-row">Total Reps: {row.set1 + row.set2 + row.set3 + row.set4 + row.set5}</p>
             </div>
         </>
     )
