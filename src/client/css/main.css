@@ -22,7 +22,7 @@
   }
 
   #this-workout-recent {
-    grid-column: 3 / 4  ;
+    grid-column: 3 / 4;
     grid-row: 2 / 3;
   }
 
@@ -38,14 +38,24 @@
     grid-template-rows: 25px 37px 200px auto;
     grid-template-columns: 1fr;
     grid-gap: 10px;
+    width: 90%;
+    margin: auto 0;
   }
 
-  #user, #sign-in {
+  #user,
+  #sign-in {
     grid-template-rows: 1 / 2;
   }
 
   #workout-options {
-    grid-row: 2 / 3;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    width: 75%;
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
   }
 
   #this-workout-recent {
@@ -55,7 +65,8 @@
 
   #workout-data {
     grid-row: 4 / 5;
-    margin-left: 5px;;
+    margin-left: 5px;
+    ;
   }
 
 }
