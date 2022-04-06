@@ -27,6 +27,7 @@ const Track = () => {
     const [allRecentWorkouts, setAllRecentWorkouts] = useState([])
 
     const submit = (event) => {
+        console.log('submit??')
         event.preventDefault()
         Ajax.post(`${SetUrl()}/TrackASet`,
             { lift, weight, reps1, reps2, reps3, reps4, reps5, fatigueIndex })
@@ -38,6 +39,7 @@ const Track = () => {
     }
 
     const response = (lift) => {
+        console.log('is this running?')
         setWeight('')
         setReps1('')
         setReps2('')
@@ -69,30 +71,22 @@ const Track = () => {
             })
     }
 
-    const getAllRecentWorkouts = () => {
-        Ajax.get(`${SetUrl()}/History`)
-            .catch((error) => { console.log('error getting history: ', error) })
-            .then((res) => {
-                setAllRecentWorkouts(res.data.log)
-            })
-    }
-
-    const setPriorityUp = () => {
+    const setPriorityUp = (e) => {
+        e.preventDefault()
         setFatigueIndex(fatigueIndex + 1)
     }
 
-    const setPriorityDown = () => {
+    const setPriorityDown = (e) => {
+        e.preventDefault()
         setFatigueIndex(fatigueIndex - 1)
     }
+
     return (
-        // const currenttime = moment()
-        // const now = currenttime.format("M/D/Y HH:mm A")
         <>
             <div id="workout-options">
                 <LiftOptions selectWorkout={selectWorkout} />
             </div>
             <div id='this-workout-recent'>
-                {/* <p className="log-header" onClick={() => { this.toggleThisRecents() }}>Recent {` ${exercise} `} Workouts {(!exercise) ? <span>(select a workout to see recents)</span> : null}</p> */}
                 <AllRecentWorkouts recentWorkouts={recentWorkouts} />
             </div>
             {/* </div> */}
@@ -101,16 +95,16 @@ const Track = () => {
                     {/* <p>{lift} {moment("M/D/Y HH:mm A")}</p> */}
                     <div id="lift-config">
                         <p style={{ margin: "0px" }}>Fatigue<br /> Index: {` ${fatigueIndex} `}</p>
-                        <Button value="+" id="set-priority-up" onClick={() => setPriorityUp()} className="fi-button" buttonContainerclassName="fi-button-div" />
-                        <Button value="-" id="set-priority-down" onClick={() => setPriorityDown()} className="fi-button" buttonContainerclassName="fi-button-div" />
-                        <p style={{ margin: "0px 0px 0px 25px" }}>Weight<br /> (lbs)</p><Input name="weight" value={weight} onChange={setWeight} className="textinput" containerCls="weight-input-container" />
+                        <Button value="+" id="set-priority-up" onClick={setPriorityUp} className="fi-button" buttonContainerclassName="fi-button-div" />
+                        <Button value="-" id="set-priority-down" onClick={setPriorityDown} className="fi-button" buttonContainerclassName="fi-button-div" />
+                        <p style={{ margin: "0px 0px 0px 25px" }}>Weight<br /> (lbs)</p><Input name="weight" value={weight} onChange={setWeight} type="number" className="textinput" containerCls="weight-input-container" />
                     </div>
                     <div id="reps-title-row"  ><p>Reps per set</p><Button id="save" value="Save" className="save" buttonContainerclassName="save-button-div" /></div>
-                    <Input name="reps1" value={reps1} onChange={setReps1} className="textinput" />
-                    <Input name="reps2" value={reps2} onChange={setReps2} className="textinput" />
-                    <Input name="reps3" value={reps3} onChange={setReps3} className="textinput" />
-                    <Input name="reps4" value={reps4} onChange={setReps4} className="textinput" />
-                    <Input name="reps5" value={reps5} onChange={setReps5} className="textinput" />
+                    <Input name="reps1" value={reps1} onChange={setReps1} className="textinput" type="number" />
+                    <Input name="reps2" value={reps2} onChange={setReps2} className="textinput" type="number" />
+                    <Input name="reps3" value={reps3} onChange={setReps3} className="textinput" type="number" />
+                    <Input name="reps4" value={reps4} onChange={setReps4} className="textinput" type="number" />
+                    <Input name="reps5" value={reps5} onChange={setReps5} className="textinput" type="number" />
 
                 </form>
                 <RestTimer />

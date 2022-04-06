@@ -18,12 +18,12 @@
 .input-container {
 	display: inline-block;
 	margin: 5px;
-	
+
 }
 
 .weight-input-container {
-	margin-left:5px;
-	display: block	;
+	margin-left: 5px;
+	display: block;
 }
 
 .label {
@@ -64,6 +64,20 @@
 	padding: 8px;
 	width: auto;
 	margin: 0px 0px 0px 121px;
+	appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0;
+	/* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+	/* Firefox */
 }
 
 .save-button-div {
