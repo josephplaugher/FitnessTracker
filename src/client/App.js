@@ -8,10 +8,6 @@ import Home from './mainmenu/Home'
 import Login from './Login'
 import NewUser from './NewUser'
 
-// import 'css/main.css'
-// import 'css/form.css'
-// import 'css/userNotify.css'
-
 class App extends FormClass {
 	constructor(props) {
 		super(props)
@@ -111,8 +107,6 @@ class App extends FormClass {
 	render() {
 		return (
 			<div id='container'>
-				<div id='logoBox'>
-				</div>
 				<div>
 					{this.state.isLoggedIn ? (
 						<Home

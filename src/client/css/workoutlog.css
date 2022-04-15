@@ -17,6 +17,16 @@
     font-size: 8px;
 }
 
-/* #overall-recent {
-    float: left;
-} */
+#edit-banner {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    background-color: green;
+}
+
+#cancel-edit {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    background-color: green;
+}

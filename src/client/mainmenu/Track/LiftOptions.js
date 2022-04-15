@@ -6,6 +6,7 @@ import '../../css/liftOptions.css'
 
 const LiftOptions = (props) => {
     const selectWorkout = props.selectWorkout
+    const currentLift = props.currentLift
 
     const [liftOptions, setLiftOptions] = useState([])
     const [liftsVisible, setLiftsVisible] = useState(false)
@@ -28,7 +29,7 @@ const LiftOptions = (props) => {
     return (
 
         <div id="lift-menu-container">
-            <p onClick={toggleLiftsVisible} style={{ margin: "5px" }} id="toggle-lifts">Lifts</p>
+            <p onClick={toggleLiftsVisible} style={{ margin: "5px" }} id="toggle-lifts">{currentLift || 'Lifts'}</p>
             {liftsVisible ? (
                 <div id="lift-option-background-div">
                     {liftOptions.map(lift =>

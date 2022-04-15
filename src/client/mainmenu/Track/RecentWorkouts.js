@@ -2,14 +2,14 @@ import React, { useState, useEffect, useReducer } from "react"
 
 const AllRecentWorkouts = (props) => {
 
-    const { recentWorkouts } = props
+    const { recentWorkouts, editLog } = props
 
     const cleanZeros = (rep) => {
         return rep > 0 ? rep : null
     }
 
     return recentWorkouts.map((row, i) =>
-        <>
+        <div key={`${i} container`} className="lift-history-container" id={row.id} onClick={() => { editLog(row) }}>
             <p key={`${i} date-row`} className="date-row">{`${row.date.substring(0, 10)}`}</p>
             <div key={`${row.time} div`} className="exercise-list">
                 <p key={`${i} lift-name`} className="rep-row">{row.lift}</p>
@@ -21,7 +21,7 @@ const AllRecentWorkouts = (props) => {
                 <p key={`${i} setline5`} className="rep-row"> {cleanZeros(row.set5)}</p>
                 <p key={`${i} reptotal`} className="rep-row">Total Reps: {row.set1 + row.set2 + row.set3 + row.set4 + row.set5}</p>
             </div>
-        </>
+        </div>
     )
 }
 

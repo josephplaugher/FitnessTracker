@@ -29,4 +29,19 @@ const post = (url, formData) => {
   return request;
 };
 
-export default { get, post };
+const put = (url, formData) => {
+  const request = axios({
+    // withCredentials: true,
+    url: url,
+    method: "put",
+    data: formData,
+    responseType: "json",
+    // headers: {
+    //   csrf: sessionStorage.getItem(process.env.TOKEN_NAME)
+    // }
+  });
+  request.catch(error => console.log("ajax error: " + error));
+  return request;
+};
+
+export default { get, post, put };
