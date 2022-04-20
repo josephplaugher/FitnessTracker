@@ -6,6 +6,7 @@
 }
 
 .textinput {
+	font-size: 16px;
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0.5px solid #2665c4;
@@ -17,7 +18,7 @@
 
 .input-container {
 	display: inline-block;
-	margin: 5px;
+	margin: 13px;
 
 }
 
@@ -38,12 +39,14 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-between;
 }
 
 #lift-config {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .fi-button {
@@ -55,7 +58,6 @@
 
 .fi-button-div {
 	display: inline;
-	margin-left: 12px;
 }
 
 #save {
@@ -63,7 +65,7 @@
 	border-radius: 5px;
 	padding: 8px;
 	width: auto;
-	margin: 0px 0px 0px 121px;
+	margin-right: 20px;
 	appearance: textfield;
 }
 
@@ -82,7 +84,6 @@ input[type=number] {
 
 .save-button-div {
 	display: inline;
-	margin-left: 12px;
 }
 
 .input-error {

@@ -137,11 +137,13 @@ const Track = () => {
                         <p style={{ margin: "0px 0px 0px 25px" }}>Weight<br /> (lbs)</p><Input name="weight" value={weight} onChange={setWeight} type="number" className="textinput" containerCls="weight-input-container" />
                     </div>
                     <div id="reps-title-row"  ><p>Reps per set</p><Button id="save" value="Save" className="save" buttonContainerclassName="save-button-div" /></div>
-                    <Input name="set1" value={set1} onChange={setSet1} className="textinput" type="number" />
-                    <Input name="set2" value={set2} onChange={setSet2} className="textinput" type="number" />
-                    <Input name="set3" value={set3} onChange={setSet3} className="textinput" type="number" />
-                    <Input name="set4" value={set4} onChange={setSet4} className="textinput" type="number" />
-                    <Input name="set5" value={set5} onChange={setSet5} className="textinput" type="number" />
+                    <div id="reps-container">
+                        <Input name="set1" value={set1} onChange={setSet1} className="textinput" type="number" />
+                        <Input name="set2" value={set2} onChange={setSet2} className="textinput" type="number" />
+                        <Input name="set3" value={set3} onChange={setSet3} className="textinput" type="number" />
+                        <Input name="set4" value={set4} onChange={setSet4} className="textinput" type="number" />
+                        <Input name="set5" value={set5} onChange={setSet5} className="textinput" type="number" />
+                    </div>
 
                 </form>
                 <RestTimer />
