@@ -23,7 +23,7 @@
 		"express": "^4.17.2",
 		"install": "^0.13.0",
 		"jsonwebtoken": "^8.5.1",
-		"moment": "^2.29.1",
+		"moment": "^2.29.4",
 		"pg": "^8.7.1",
 		"react": "^17.0.2",
 		"react-compound-timer": "^1.2.0",
